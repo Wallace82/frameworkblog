@@ -29,62 +29,49 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Table(name = "POST")
-public class Post {
+@Table(name = "GALERIAFOTOS")
+public class GaleriaFotos {
 
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="POS_CODIGO",unique=true, nullable=false)
+	@Column(name="GAF_CODIGO",unique=true, nullable=false)
 	private Long id;
 	
-	@Column(name = "POS_DATACADASTRO")
+	@Column(name = "GAF_DATACADASTRO")
 	@DateTimeFormat(pattern="dd/MM/yyyy hh:MM:ss")
 	private LocalDateTime dataHoraPublicacao;
 	
 	
-	@Column(name="POS_TITULO")
+	@Column(name="GAF_TITULO")
 	private String titulo;
 	
 	
-	@Column(name="POS_DESCRICAO")
+	@Column(name="GAF_DESCRICAO")
 	private String descricao;
 	
-	@Column(name="POS_VISUALIZACOES")
-	private int visualizacoes;
-	
-	
-	@JoinColumn(name = "CAT_CODIGO", referencedColumnName = "CAT_CODIGO")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private Categoria categoria;
-	
 
-	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-	@JsonIgnore
-	private List<Comentario> comentarios;
 	
-	
-	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-	@JsonIgnore
-	private List<Curtidas> curtidas;
-	
-	@JoinColumn(name = "USU_CODIGO_POST", referencedColumnName = "USU_CODIGO")
+	@JoinColumn(name = "USU_CODIGO_GALERIA", referencedColumnName = "USU_CODIGO")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Usuario usuario;
 
 	
-	public Post(Long id, LocalDateTime dataHoraPublicacao, String titulo, String descricao, Categoria categoria,
-			List<Comentario> comentarios, List<Curtidas> curtidas, Usuario usuario) {
+	@OneToMany(mappedBy = "galeriaFotos", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<Fotos> fotos;
+
+
+	public GaleriaFotos(Long id, LocalDateTime dataHoraPublicacao, String titulo, String descricao, Usuario usuario,
+			List<Fotos> fotos) {
 		super();
 		this.id = id;
 		this.dataHoraPublicacao = dataHoraPublicacao;
 		this.titulo = titulo;
 		this.descricao = descricao;
-		this.categoria = categoria;
-		this.comentarios = comentarios;
-		this.curtidas = curtidas;
 		this.usuario = usuario;
+		this.fotos = fotos;
 	}
-
+	
 	
 }

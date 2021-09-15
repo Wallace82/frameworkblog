@@ -56,10 +56,13 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Post> posts;
+	
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<GaleriaFotos> galerias;
 
-
-	public Usuario(Long id, LocalDateTime dataHoraPublicacao, String nome, String email, String senha,
-			List<Post> posts) {
+	public Usuario(Long id, LocalDateTime dataHoraPublicacao, String nome, String email, String senha, List<Post> posts,
+			List<GaleriaFotos> galerias) {
 		super();
 		this.id = id;
 		this.dataHoraPublicacao = dataHoraPublicacao;
@@ -67,7 +70,9 @@ public class Usuario {
 		this.email = email;
 		this.senha = senha;
 		this.posts = posts;
+		this.galerias = galerias;
 	}
+
 	
 
 }

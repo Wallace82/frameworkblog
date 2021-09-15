@@ -50,15 +50,23 @@ public class Comentario {
 	@JoinColumn(name = "POS_CODIGO", referencedColumnName = "POS_CODIGO")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Post post;
+	
+	
+	@JoinColumn(name = "FOT_CODIGO", referencedColumnName = "FOT_CODIGO")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private Fotos foto;
 
-	public Comentario(Long id, LocalDateTime dataHoraPublicacao, String descricao, Usuario usuario, Post post) {
+
+	public Comentario(Long id, LocalDateTime dataHoraPublicacao, String descricao, Usuario usuario, Post post,
+			Fotos foto) {
 		super();
 		this.id = id;
 		this.dataHoraPublicacao = dataHoraPublicacao;
 		this.descricao = descricao;
 		this.usuario = usuario;
 		this.post = post;
+		this.foto = foto;
 	}
-	
+
 	
 }
