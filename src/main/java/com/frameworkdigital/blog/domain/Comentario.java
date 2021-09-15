@@ -1,8 +1,6 @@
 package com.frameworkdigital.blog.domain;
 
-
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,12 +8,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,47 +24,41 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Table(name = "USUARIO")
-public class Usuario {
-	
+@Table(name = "COMENTARIO")
+public class Comentario {
+
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="USU_CODIGO",unique=true, nullable=false)
+	@Column(name="COM_CODIGO",unique=true, nullable=false)
 	private Long id;
 	
-	@Column(name = "USU_DATACADASTRO")
+	
+	@Column(name = "COM_DATACADASTRO")
 	@DateTimeFormat(pattern="dd/MM/yyyy hh:MM:ss")
 	private LocalDateTime dataHoraPublicacao;
 	
 	
-	@Column(name="USU_NOME")
-	private String nome;
+	@Column(name="CAT_DESCRICAO")
+	private String descricao;
 	
 	
-	@Column(name="USU_EMAIL")
-	private String email;
+	@JoinColumn(name = "USU_CODIGO_COMENTARIO", referencedColumnName = "USU_CODIGO")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private Usuario usuario;
 	
-	
-	@Column(name="USU_SENHA")
-	private String senha;
-	
-	
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-	@JsonIgnore
-	private List<Post> posts;
+	@JoinColumn(name = "POS_CODIGO", referencedColumnName = "POS_CODIGO")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private Post post;
 
-
-	public Usuario(Long id, LocalDateTime dataHoraPublicacao, String nome, String email, String senha,
-			List<Post> posts) {
+	public Comentario(Long id, LocalDateTime dataHoraPublicacao, String descricao, Usuario usuario, Post post) {
 		super();
 		this.id = id;
 		this.dataHoraPublicacao = dataHoraPublicacao;
-		this.nome = nome;
-		this.email = email;
-		this.senha = senha;
-		this.posts = posts;
+		this.descricao = descricao;
+		this.usuario = usuario;
+		this.post = post;
 	}
 	
-
+	
 }
