@@ -1,7 +1,7 @@
 package com.frameworkdigital.blog.domain;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -37,8 +37,8 @@ public class Usuario {
 	private Long id;
 	
 	@Column(name = "USU_DATACADASTRO")
-	@DateTimeFormat(pattern="dd/MM/yyyy hh:MM:ss")
-	private LocalDateTime dataHoraPublicacao;
+	@DateTimeFormat(pattern="dd/MM/yyyy")
+	private LocalDate dataCadastro;
 	
 	
 	@Column(name="USU_NOME")
@@ -61,11 +61,11 @@ public class Usuario {
 	@JsonIgnore
 	private List<GaleriaFotos> galerias;
 
-	public Usuario(Long id, LocalDateTime dataHoraPublicacao, String nome, String email, String senha, List<Post> posts,
+	public Usuario(Long id, LocalDate dataCadastro, String nome, String email, String senha, List<Post> posts,
 			List<GaleriaFotos> galerias) {
 		super();
 		this.id = id;
-		this.dataHoraPublicacao = dataHoraPublicacao;
+		this.dataCadastro = dataCadastro;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
@@ -73,6 +73,5 @@ public class Usuario {
 		this.galerias = galerias;
 	}
 
-	
 
 }
