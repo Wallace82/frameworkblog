@@ -68,23 +68,17 @@ public class Post {
 	@JsonIgnore
 	private List<Curtidas> curtidas;
 	
+	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<ImagensPost> imagensPost;
+	
+	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<Link> links;
+	
 	@JoinColumn(name = "USU_CODIGO_POST", referencedColumnName = "USU_CODIGO")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Usuario usuario;
-
-	
-	public Post(Long id, LocalDateTime dataHoraPublicacao, String titulo, String descricao, Categoria categoria,
-			List<Comentario> comentarios, List<Curtidas> curtidas, Usuario usuario) {
-		super();
-		this.id = id;
-		this.dataHoraPublicacao = dataHoraPublicacao;
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.categoria = categoria;
-		this.comentarios = comentarios;
-		this.curtidas = curtidas;
-		this.usuario = usuario;
-	}
 
 	
 	

@@ -34,10 +34,10 @@ public class ImagensPost {
 	private Post post;
 
 	@Column(name = "IPO_NOME_IMAGEM")
-  	private String imagenNome;
+  	private String imagemNome;
   	
   	@Column(name = "IPO_IMAGEM_CONTENTTYPE")
-  	private String imagenContentType;
+  	private String imagemContentType;
 
 	
 }
