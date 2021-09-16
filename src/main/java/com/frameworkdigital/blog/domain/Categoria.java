@@ -28,20 +28,8 @@ public class Categoria {
 	@Column(name="CAT_NOME")
 	private String titulo;
 	
-	@Column(name="CAT_DESCRICAO")
-	private String descricao;
-	
-	
 	@Column(name="CAT_ATIVO")
 	private boolean ativo;
 
-	public Categoria(Long id, String titulo, String descricao, boolean ativo) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.ativo = ativo;
-	}
-	
 
 }

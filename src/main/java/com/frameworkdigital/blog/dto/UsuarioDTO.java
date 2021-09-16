@@ -22,9 +22,9 @@ public class UsuarioDTO {
 	private String email;
 	private String senha;
 	
-	private String action = "usuario";
+	private String action = "usuarios";
 	
 	public String getAction() {
-		return action+"/"+id;
+		return "/"+action+"/"+id;
 	}
 }

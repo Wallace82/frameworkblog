@@ -30,6 +30,12 @@ public class PostDTO {
 	private Long categoriaId;
 	
 	private Long usuarioId;
+	
+	private String action = "posts";
+	
+	public String getAction() {
+		return "/"+action+"/"+id;
+	}
 
 
 }

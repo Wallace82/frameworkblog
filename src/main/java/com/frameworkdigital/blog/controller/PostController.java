@@ -37,8 +37,6 @@ public class PostController {
 	}
 
 	
-	
-	
 	@GetMapping
 	public List<PostDTO>  getPosts() {
 		List<Post> posts =  postService.buscarPosts();

@@ -25,9 +25,17 @@ public class GaleriaFotosDTO {
 	
 	private int visualizacoes;
 	
-	private Long categoria;
+	private Long categoriaId;
 	
-	private Long usuario;
+	private Long usuarioId;
+	
+	
+	private String action = "galerias";
+	
+	public String getAction() {
+		return "/"+action+"/"+id;
+	}
+	
 	
 
 }

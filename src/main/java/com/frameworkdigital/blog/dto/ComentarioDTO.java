@@ -18,19 +18,16 @@ public class ComentarioDTO {
 	@DateTimeFormat(pattern="dd/MM/yyyy hh:MM:ss")
 	private LocalDateTime dataHoraPublicacao;
 	
-	private Long usuario;
+	private Long usuarioId;
 
-	private Long post;
+	private Long postId;
 	
-	private Long foto;
+	private Long fotoId;
 
-	public ComentarioDTO(Long id, LocalDateTime dataHoraPublicacao, Long usuario, Long post, Long foto) {
-		super();
-		this.id = id;
-		this.dataHoraPublicacao = dataHoraPublicacao;
-		this.usuario = usuario;
-		this.post = post;
-		this.foto = foto;
+	private String action = "comentarios";
+	
+	public String getAction() {
+		return "/"+action+"/"+id;
 	}
 
 }
