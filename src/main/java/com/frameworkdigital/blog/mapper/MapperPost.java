@@ -32,9 +32,7 @@ public class MapperPost {
 	}
 
 	public Post mapperPostDto(PostDTO postDTO) {
-		ModelMapper modelMapper = new ModelMapper();
-		Post post = modelMapper.map(postDTO, Post.class);
-		return post;
+		return modelMapper.map(postDTO, Post.class);
 	}
 	
 }

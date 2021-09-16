@@ -1,10 +1,10 @@
 package com.frameworkdigital.blog.mapper;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.frameworkdigital.blog.domain.Usuario;
@@ -13,18 +13,27 @@ import com.frameworkdigital.blog.dto.UsuarioDTO;
 @Component
 public class MapperUsuario {
 
+	@Autowired
+	private ModelMapper modelMapper;
 	
-	public UsuarioDTO mapperUsuario(Optional<Usuario> optUsuario) {
-		ModelMapper modelMapper = new ModelMapper();
-		UsuarioDTO postDTO = modelMapper.map(optUsuario.orElse(new Usuario()), UsuarioDTO.class);
+	public UsuarioDTO mapperEntityToDto(Usuario usuario) {
+		UsuarioDTO postDTO = modelMapper.map(usuario, UsuarioDTO.class);
 		return postDTO;
 	}
 	
-	public List<UsuarioDTO> mapperPostList(List<Usuario> posts, ModelMapper modelMapper) {
-		List<UsuarioDTO> retorno = posts
+	public List<UsuarioDTO> mapperList(List<Usuario> usuarios) {
+		List<UsuarioDTO> retorno = usuarios
 				  .stream()
-				  .map(user -> modelMapper.map(user, UsuarioDTO.class))
+				  .map(user -> mapperEntityToDto(user))
 				  .collect(Collectors.toList());
 		return retorno;
+	}
+	
+	public Usuario mapperDtoToEntity(UsuarioDTO usuarioDTO) {
+		return modelMapper.map(usuarioDTO, Usuario.class);
+	}
+	
+	public void copyDtoToEntity(UsuarioDTO usuarioDTO, Usuario usuario) {
+		modelMapper.map(usuarioDTO, usuario);
 	}
 }

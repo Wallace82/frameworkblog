@@ -60,18 +60,16 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<GaleriaFotos> galerias;
-
-	public Usuario(Long id, LocalDate dataCadastro, String nome, String email, String senha, List<Post> posts,
-			List<GaleriaFotos> galerias) {
-		super();
-		this.id = id;
-		this.dataCadastro = dataCadastro;
-		this.nome = nome;
-		this.email = email;
-		this.senha = senha;
-		this.posts = posts;
-		this.galerias = galerias;
+	
+	
+	public boolean senhaCoincideCom(String senha) {
+		return getSenha().equals(senha);
 	}
+	
+	public boolean senhaNaoCoincideCom(String senha) {
+		return !senhaCoincideCom(senha);
+	}
+
 
 
 }

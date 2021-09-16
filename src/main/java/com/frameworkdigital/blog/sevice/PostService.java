@@ -2,7 +2,6 @@ package com.frameworkdigital.blog.sevice;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +20,6 @@ public class PostService {
 		return buscarOuFalhar(id);
 	}
 	
-	public Post buscarOuFalhar(Long postId) {
-		return postRepository.findById(postId)
-			.orElseThrow(() -> new PostNaoEncontradoException(postId));
-	}
 	
 	public List<Post> buscarPosts() {
 		return postRepository.findAll();
@@ -40,6 +35,10 @@ public class PostService {
 		return postRepository.save(post);
 	}
 
+	public Post buscarOuFalhar(Long postId) {
+		return postRepository.findById(postId)
+				.orElseThrow(() -> new PostNaoEncontradoException(postId));
+	}
 	
 
 }
