@@ -1,4 +1,4 @@
-package com.frameworkdigital.blog.mapper;
+package com.frameworkdigital.blog.dto;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ComentarioDTO {
+public class CurtidasDTO {
 	
 	private Long id;
 	
@@ -25,7 +25,7 @@ public class ComentarioDTO {
 	
 	private Long foto;
 
-	public ComentarioDTO(Long id, LocalDateTime dataHoraPublicacao, Long usuario, Long post, Long foto) {
+	public CurtidasDTO(Long id, LocalDateTime dataHoraPublicacao, Long usuario, Long post, Long foto) {
 		super();
 		this.id = id;
 		this.dataHoraPublicacao = dataHoraPublicacao;
@@ -33,5 +33,5 @@ public class ComentarioDTO {
 		this.post = post;
 		this.foto = foto;
 	}
-
+	
 }

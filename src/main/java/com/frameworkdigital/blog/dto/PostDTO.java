@@ -1,4 +1,4 @@
-package com.frameworkdigital.blog.mapper;
+package com.frameworkdigital.blog.dto;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GaleriaFotosDTO {
+public class PostDTO {
 	
 	private long id;
 	

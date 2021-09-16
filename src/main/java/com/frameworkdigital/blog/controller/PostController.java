@@ -12,27 +12,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.frameworkdigital.blog.domain.Post;
 import com.frameworkdigital.blog.domain.Usuario;
+import com.frameworkdigital.blog.dto.PostDTO;
 import com.frameworkdigital.blog.dto.UsuarioDTO;
+import com.frameworkdigital.blog.sevice.PostService;
 import com.frameworkdigital.blog.sevice.UsuarioService;
 
 
 @RestController
-@RequestMapping("/usuarios")
-public class UsuarioController {
+@RequestMapping("/posts")
+public class PostController {
 	
 	@Autowired
-	private UsuarioService usuarioService;
+	private PostService postService;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<UsuarioDTO>  getUsuario(@PathVariable Long id) {
+	public ResponseEntity<PostDTO>  getPost(@PathVariable Long id) {
 		
-		Optional<Usuario> optUsuario =  usuarioService.buscarUsuario(id);
+		Optional<Post> optPost =  postService.buscarUsuario(id);
 		
 		ModelMapper modelMapper = new ModelMapper();
-		UsuarioDTO usuarioDTO = modelMapper.map(optUsuario.orElse(new Usuario()), UsuarioDTO.class);
+		PostDTO postDTO = modelMapper.map(optPost.orElse(new Usuario()), PostDTO.class);
 		
-		return usuarioDTO.getNome()!=null?ResponseEntity.ok(usuarioDTO):ResponseEntity.notFound().build();
+		return postDTO.getTitulo()!=null?ResponseEntity.ok(postDTO):ResponseEntity.notFound().build();
 	}
 	
 	

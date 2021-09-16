@@ -1,7 +1,6 @@
-package com.frameworkdigital.blog.mapper;
+package com.frameworkdigital.blog.dto;
 
 import java.time.LocalDateTime;
-
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CurtidasDTO {
+public class ComentarioDTO {
 	
 	private Long id;
 	
@@ -25,7 +24,7 @@ public class CurtidasDTO {
 	
 	private Long foto;
 
-	public CurtidasDTO(Long id, LocalDateTime dataHoraPublicacao, Long usuario, Long post, Long foto) {
+	public ComentarioDTO(Long id, LocalDateTime dataHoraPublicacao, Long usuario, Long post, Long foto) {
 		super();
 		this.id = id;
 		this.dataHoraPublicacao = dataHoraPublicacao;
@@ -33,5 +32,5 @@ public class CurtidasDTO {
 		this.post = post;
 		this.foto = foto;
 	}
-	
+
 }

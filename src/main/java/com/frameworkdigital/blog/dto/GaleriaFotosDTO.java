@@ -1,8 +1,6 @@
-package com.frameworkdigital.blog.mapper;
+package com.frameworkdigital.blog.dto;
 
 import java.time.LocalDateTime;
-
-import javax.persistence.Entity;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostDTO {
+public class GaleriaFotosDTO {
 	
 	private long id;
 	

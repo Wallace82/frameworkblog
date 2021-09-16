@@ -1,4 +1,4 @@
-package com.frameworkdigital.blog.mapper;
+package com.frameworkdigital.blog.dto;
 
 import java.time.LocalDate;
 
