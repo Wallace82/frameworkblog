@@ -1,24 +1,23 @@
 package com.frameworkdigital.blog.controller;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.frameworkdigital.blog.domain.Post;
-import com.frameworkdigital.blog.domain.Usuario;
 import com.frameworkdigital.blog.dto.PostDTO;
-import com.frameworkdigital.blog.dto.UsuarioDTO;
 import com.frameworkdigital.blog.mapper.MapperPost;
 import com.frameworkdigital.blog.sevice.PostService;
-import com.frameworkdigital.blog.sevice.UsuarioService;
 
 
 @RestController
@@ -32,28 +31,27 @@ public class PostController {
 	private MapperPost mapperPost;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<PostDTO>  getPost(@PathVariable Long id) {
-		
-		Optional<Post> optPost =  postService.buscarPost(id);
-		
-		PostDTO postDTO = mapperPost.mapperPost(optPost);
-		
-		return postDTO.getTitulo()!=null?ResponseEntity.ok(postDTO):ResponseEntity.notFound().build();
+	public PostDTO  getPost(@PathVariable Long id) {
+		Post post =  postService.buscarOuFalhar(id);
+		return mapperPost.mapperPost(post);
 	}
 
-
+	
+	
 	
 	@GetMapping
-	public ResponseEntity< List<PostDTO>>  getUsuarios() {
-		
+	public List<PostDTO>  getPosts() {
 		List<Post> posts =  postService.buscarPosts();
-		
-		ModelMapper modelMapper = new ModelMapper();
-		
-		List<PostDTO> retorno = mapperPost.mapperPostList(posts, modelMapper);
-		
-		
-		return retorno.isEmpty()?ResponseEntity.notFound().build():ResponseEntity.ok(retorno);
+		return  mapperPost.mapperPostList(posts);
+	}
+	
+	
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public PostDTO inserirPost(@RequestBody @Validated PostDTO postDTO){
+		Post post = postService.cadastrar(mapperPost.mapperPostDto(postDTO));
+		PostDTO retorno  = getPost(post.getId());
+		return retorno;
 	}
 
 	

@@ -43,11 +43,11 @@ public class Post {
 	private LocalDateTime dataHoraPublicacao;
 	
 	
-	@Column(name="POS_TITULO")
+	@Column(name="POS_TITULO",nullable = false)
 	private String titulo;
 	
 	
-	@Column(name="POS_DESCRICAO")
+	@Column(name="POS_DESCRICAO",nullable = false)
 	private String descricao;
 	
 	@Column(name="POS_VISUALIZACOES")
@@ -86,5 +86,6 @@ public class Post {
 		this.usuario = usuario;
 	}
 
+	
 	
 }

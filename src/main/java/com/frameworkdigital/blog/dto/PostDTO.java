@@ -7,11 +7,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class PostDTO {
 	
 	private long id;
@@ -25,9 +27,9 @@ public class PostDTO {
 	
 	private int visualizacoes;
 	
-	private Long categoria;
+	private Long categoriaId;
 	
-	private Long usuario;
-	
+	private Long usuarioId;
+
 
 }

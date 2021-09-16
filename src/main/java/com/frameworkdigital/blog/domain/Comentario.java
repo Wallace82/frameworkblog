@@ -19,11 +19,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Entity
 @Table(name = "COMENTARIO")
 public class Comentario {
 

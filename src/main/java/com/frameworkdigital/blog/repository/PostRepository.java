@@ -7,5 +7,6 @@ import com.frameworkdigital.blog.domain.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+	
 
 }
