@@ -1,8 +1,5 @@
 package com.frameworkdigital.blog.domain;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,22 +20,24 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Table(name = "PERMISSAO")
-public class Permissao {
-
+@Table(name = "IMAGENS_POST")
+public class ImagensPost {
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="PER_CODIGO",unique=true, nullable=false)
+	@Column(name="IPO_CODIGO",unique=true, nullable=false)
 	private Long id;
 	
-	@Column(name="PER_NOME",nullable = false)
-	private String nome;
-	
-	@Column(name="PER_DESCRICAO",nullable = false)
-	private String descricao;
-	
-	@JoinColumn(name = "USU_CODIGO_PERMISSAO", referencedColumnName = "USU_CODIGO")
+	@JoinColumn(name = "POS_CODIGO", referencedColumnName = "POS_CODIGO")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private Usuario usuario;
+	private Post post;
+
+	@Column(name = "IPO_NOME_IMAGEM")
+  	private String imagenNome;
+  	
+  	@Column(name = "IPO_IMAGEM_CONTENTTYPE")
+  	private String imagenContentType;
+
 	
 }
