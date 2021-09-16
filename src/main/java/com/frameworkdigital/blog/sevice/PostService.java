@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.frameworkdigital.blog.domain.Post;
-import com.frameworkdigital.blog.domain.Usuario;
-import com.frameworkdigital.blog.repository.UsuarioRepository;
+import com.frameworkdigital.blog.repository.PostRepository;
 
 @Service
 public class PostService {
@@ -16,12 +15,14 @@ public class PostService {
 	@Autowired
 	private PostRepository postRepository;
 	
-	public Optional<Post> buscarUsuario(Long id) {
+	public Optional<Post> buscarPost(Long id) {
 		return postRepository.findById(id);
 	}
 	
-	public List<Post> buscarUsuarios() {
+	public List<Post> buscarPosts() {
 		return postRepository.findAll();
 	}
+
+	
 
 }
