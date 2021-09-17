@@ -40,6 +40,12 @@ public class ImagensPost {
   	
   	@Column(name = "IPO_IMAGEM_CONTENTTYPE")
   	private String imagemContentType;
+  	
+  	
+	public String getTipoReduzido(){
+		String arrayNome[] = this.imagemNome.split("\\."); 
+		return arrayNome[1];
+	}
 
 	public ImagensPost(Long id, Post post, String imagemNome, String imagemContentType) {
 		super();
