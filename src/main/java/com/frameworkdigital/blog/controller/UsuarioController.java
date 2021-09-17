@@ -55,7 +55,7 @@ public class UsuarioController {
 		
 	}
 	
-	@CrossOrigin(maxAge = 1800, origins = {"/localhot:4200"})
+	@CrossOrigin(maxAge = 1800, origins = {"http://localhost:4200"})
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> adicionar(@RequestBody @Valid UsuarioDTO usuarioDTO) {

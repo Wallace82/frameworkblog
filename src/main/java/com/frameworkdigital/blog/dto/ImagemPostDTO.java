@@ -14,7 +14,7 @@ public class ImagemPostDTO {
   	private String imagemNome;
   	private String imagemContentType;
   	
-  	private String action="imagens";
+  	private String action="imagenspost";
   	
   	public String getAction() {
   		return "/"+action+"/"+id;

@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,14 +68,6 @@ public class PostController {
 	}
 	
 	
-//	@PostMapping
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public PostDTO cadastrar(@RequestBody @Valid PostDTO postDTO){
-//		Post post = postService.cadastrar(mapperPost.mapperPostDto(postDTO));
-//		PostDTO retorno  = mapperPost.mapperPost(postService.buscarPost(post.getId()));
-//		return retorno;
-//	}
-	
 	
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
@@ -113,11 +107,9 @@ public class PostController {
 		
 	}
 	
-	
-
-	
+	@PostMapping(name ="/imagens", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@CrossOrigin(maxAge = 1800, origins = {"http://localhost:4200"})
 	public FotoDTO uploadFoto( MultipartFile foto) {
-		
 		DeferredResult<FotoDTO> resultado = new DeferredResult<>();
 		String caminho = "ImgensPosts"+File.separator;
 		Thread thread = new Thread(new FotoStorageRunnable(foto, resultado, fotoStorage,caminho));
@@ -128,8 +120,7 @@ public class PostController {
 			retorno = (FotoDTO) resultado.getResult();
 		}
 		
-	 return retorno;
-		
+		return retorno;
 	}
 	
 	
