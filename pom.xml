@@ -15,6 +15,8 @@
 	<description>Blog FrameworkDigital</description>
 	<properties>
 		<java.version>12</java.version>
+		<spring-security-oauth2.version>2.3.8.RELEASE</spring-security-oauth2.version>
+		<spring-security-jwt.version>1.0.11.RELEASE</spring-security-jwt.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -87,6 +89,50 @@
 		</dependency>
 		
 		
+	<!-- Segurança -->
+			<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-security</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>
+			spring-boot-starter-oauth2-resource-server
+		</artifactId>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-jwt</artifactId>
+		<version>${spring-security-jwt.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.security.oauth</groupId>
+		<artifactId>spring-security-oauth2</artifactId>
+		<version>${spring-security-oauth2.version}</version>
+	</dependency>
+		
+		
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-configuration-processor</artifactId>
+		<optional>true</optional>
+	</dependency>
+	
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-configuration-processor -->
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+	
+	
 	</dependencies>
 
 	<build>

@@ -10,13 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -25,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.frameworkdigital.blog.domain.ImagensPost;
 import com.frameworkdigital.blog.domain.Link;
 import com.frameworkdigital.blog.domain.Post;
-import com.frameworkdigital.blog.dto.ArquivoDTO;
 import com.frameworkdigital.blog.dto.FotoDTO;
 import com.frameworkdigital.blog.dto.PostDTO;
 import com.frameworkdigital.blog.dto.PostInput;
@@ -93,8 +90,6 @@ public class PostController {
 	}
 
 
-	
-
 
 	private void gravarLinks(Link link) {
 		postService.addLink(link);
@@ -107,7 +102,6 @@ public class PostController {
 	}
 	
 	
-	@CrossOrigin(maxAge = 1800, origins = {"http://localhost:4200"})
 	@PutMapping(name ="/imagens", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public FotoDTO uploadFotoUnica( MultipartFile foto) {
 		DeferredResult<FotoDTO> resultado = new DeferredResult<>();
