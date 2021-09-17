@@ -2,7 +2,6 @@ package com.frameworkdigital.blog.dto;
 
 import java.time.LocalDateTime;
 
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;

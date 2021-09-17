@@ -42,17 +42,6 @@ public class PostDTO {
 		return "/"+action+"/"+id;
 	}
 
-	@Override
-	public String toString() {
-		return "PostDTO [id=" + id + ", "
-				+ (dataHoraPublicacao != null ? "dataHoraPublicacao=" + dataHoraPublicacao + ", " : "")
-				+ (titulo != null ? "titulo=" + titulo + ", " : "")
-				+ (descricao != null ? "descricao=" + descricao + ", " : "") + "visualizacoes=" + visualizacoes + ", "
-				+ (categoriaId != null ? "categoriaId=" + categoriaId + ", " : "")
-				+ (usuarioId != null ? "usuarioId=" + usuarioId + ", " : "")
-				+ (links != null ? "links=" + links + ", " : "") + (imagens != null ? "imagens=" + imagens + ", " : "")
-				+ (action != null ? "action=" + action : "") + "]";
-	}
 	
 	
 

@@ -1,5 +1,6 @@
 package com.frameworkdigital.blog.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -12,25 +13,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.frameworkdigital.blog.domain.ImagensPost;
 import com.frameworkdigital.blog.domain.Link;
 import com.frameworkdigital.blog.domain.Post;
+import com.frameworkdigital.blog.dto.ArquivoDTO;
+import com.frameworkdigital.blog.dto.FotoDTO;
 import com.frameworkdigital.blog.dto.PostDTO;
 import com.frameworkdigital.blog.dto.PostInput;
 import com.frameworkdigital.blog.exception.PostNaoEncontradoException;
 import com.frameworkdigital.blog.mapper.MapperPost;
 import com.frameworkdigital.blog.sevice.PostService;
+import com.frameworkdigital.blog.storage.FotoStorage;
+import com.frameworkdigital.blog.storage.FotoStorageRunnable;
 
 
 @RestController
 @RequestMapping("/posts")
 public class PostController {
+	
+	
+	@Autowired
+	private FotoStorage fotoStorage;
 	
 	@Autowired
 	private PostService postService;
@@ -68,41 +77,61 @@ public class PostController {
 	
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?>  cadastroComFoto(@Valid PostInput postInput,List<MultipartFile> imagens) throws IOException {
+	public ResponseEntity<?>  cadastroComFoto(@Valid PostInput postInput) throws IOException {
 
 		PostDTO postDTO = mapperPost.mapperPostInput(postInput);
-		postDTO.setUsuarioId(1l);//usuario logado
+		postDTO.setId(0l);
 		
-		System.err.println("DTO -> "+ postDTO.toString());
+		postDTO.setUsuarioId(1l);//usuario logado
 		
 		Post post = postService.cadastrar(mapperPost.mapperPostDto(postDTO));
 		
-		System.err.println("obj -> "+ post.toString());
-		
 		postInput.getImagens().stream().forEach(e -> 
-				gravarImagem(new ImagensPost(0l,post,e.getOriginalFilename(),e.getContentType())));
+				gravarImagem(new ImagensPost(0l,post,e.getOriginalFilename(),e.getContentType()),e));
 		
 		postInput.getLinks().stream().forEach(e -> 
 				gravarLinks(new Link(0l,e,post)));
 		
 		
-		
-		
-		return  ResponseEntity.ok("SUCESSO");
+		return  buscar(post.getId());
 		
 	}
+
+
+	
 
 
 	private void gravarLinks(Link link) {
-		System.err.println("GRAVANDO link NO BANCO >"+link.toString());
+		postService.addLink(link);
 	}
 
 
-	private void gravarImagem(ImagensPost imagensPost) {
-		
-		System.err.println("GRAVANDO REFE IMAGEN NO BANCO >"+imagensPost.toString());
+	private void gravarImagem(ImagensPost imagensPost,MultipartFile imagem) {
+		FotoDTO retorno  = uploadFoto(imagem);
+		imagensPost.setImagemNome(retorno.getNome());
+		postService.addImagem(imagensPost);
 		
 	}
+	
+	
+
+	
+	public FotoDTO uploadFoto( MultipartFile foto) {
+		
+		DeferredResult<FotoDTO> resultado = new DeferredResult<>();
+		String caminho = "ImgensPosts"+File.separator;
+		Thread thread = new Thread(new FotoStorageRunnable(foto, resultado, fotoStorage,caminho));
+		thread.start();
+		FotoDTO retorno =null;
+		while(retorno==null) {
+			try { Thread.sleep (500); } catch (InterruptedException ex) {}
+			retorno = (FotoDTO) resultado.getResult();
+		}
+		
+	 return retorno;
+		
+	}
+	
 	
 	
 
