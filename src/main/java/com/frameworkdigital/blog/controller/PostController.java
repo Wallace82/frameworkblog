@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.frameworkdigital.blog.domain.ImagensPost;
 import com.frameworkdigital.blog.domain.Link;
@@ -56,18 +57,18 @@ public class PostController {
 	}
 	
 	
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public PostDTO cadastrar(@RequestBody @Valid PostDTO postDTO){
-		Post post = postService.cadastrar(mapperPost.mapperPostDto(postDTO));
-		PostDTO retorno  = mapperPost.mapperPost(postService.buscarPost(post.getId()));
-		return retorno;
-	}
+//	@PostMapping
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public PostDTO cadastrar(@RequestBody @Valid PostDTO postDTO){
+//		Post post = postService.cadastrar(mapperPost.mapperPostDto(postDTO));
+//		PostDTO retorno  = mapperPost.mapperPost(postService.buscarPost(post.getId()));
+//		return retorno;
+//	}
 	
 	
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?>  cadastroComFotoFoto(@Valid PostInput postInput) throws IOException {
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<?>  cadastroComFoto(@Valid PostInput postInput,List<MultipartFile> imagens) throws IOException {
 
 		PostDTO postDTO = mapperPost.mapperPostInput(postInput);
 		postDTO.setUsuarioId(1l);//usuario logado

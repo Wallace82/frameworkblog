@@ -1,6 +1,6 @@
 -- Database: blog
 
--- DROP DATABASE blog;
+--DROP DATABASE blog;
 
 CREATE DATABASE blog
     WITH 
@@ -11,6 +11,3 @@ CREATE DATABASE blog
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
 
-INSERT INTO usuario(
-	 usu_datacadastro, usu_email, usu_nome, usu_senha)
-	VALUES ( current_date, 'gomesw@gmail.com', 'Wallace Gomes da Silva', '12345678');

@@ -12,13 +12,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 @EqualsAndHashCode
 public class PostInput {
 	
@@ -35,6 +33,8 @@ public class PostInput {
 	@FileSize(max = "10240KB")
 	@FileContentType(allowed = { MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
 	private List<MultipartFile> imagens;
+	
+	
 	
 
 
