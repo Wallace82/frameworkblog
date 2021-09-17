@@ -1,16 +1,6 @@
--- Database: blog
+INSERT INTO categoria_post(cat_ativo, cat_nome) VALUES ( TRUE, 'PHP');
+INSERT INTO categoria_post(cat_ativo, cat_nome) VALUES ( TRUE, 'JAVA');
+INSERT INTO categoria_post(cat_ativo, cat_nome) VALUES ( TRUE, 'SPRING');
+INSERT INTO categoria_post(cat_ativo, cat_nome) VALUES ( TRUE, 'SQLSERVER');
 
--- DROP DATABASE blog;
-
-CREATE DATABASE blog
-    WITH 
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'C'
-    LC_CTYPE = 'C'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1;
-
-INSERT INTO usuario(
-	 usu_datacadastro, usu_email, usu_nome, usu_senha)
-	VALUES ( current_date, 'gomesw@gmail.com', 'Wallace Gomes da Silva', '12345678');
+INSERT INTO usuario(usu_datacadastro, usu_email, usu_nome, usu_senha) VALUES (current_date, 'gomesw@gmail.com','Wallace Gomes da Silva', '123456');

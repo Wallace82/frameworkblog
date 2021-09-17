@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.frameworkdigital.blog.domain.Post;
 import com.frameworkdigital.blog.dto.PostDTO;
+import com.frameworkdigital.blog.dto.PostInput;
 
 @Component
 public class MapperPost {
@@ -33,6 +34,10 @@ public class MapperPost {
 
 	public Post mapperPostDto(PostDTO postDTO) {
 		return modelMapper.map(postDTO, Post.class);
+	}
+	
+	public PostDTO mapperPostInput(PostInput input) {
+		return modelMapper.map(input, PostDTO.class);
 	}
 	
 }

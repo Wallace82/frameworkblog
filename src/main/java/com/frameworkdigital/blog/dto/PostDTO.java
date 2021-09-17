@@ -4,22 +4,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.MediaType;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.frameworkdigital.blog.core.validation.FileContentType;
-import com.frameworkdigital.blog.core.validation.FileSize;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class PostDTO {
 	
 	private long id;
@@ -39,9 +32,8 @@ public class PostDTO {
 	
 	private List<LinkDTO> links;
 	
-	@FileSize(max = "1024KB")
-	@FileContentType(allowed = { MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
-	private List<MultipartFile> imagens;
+	
+	private List<ImagemPostDTO> imagens;
 	
 	
 	private String action = "posts";
@@ -49,6 +41,20 @@ public class PostDTO {
 	public String getAction() {
 		return "/"+action+"/"+id;
 	}
+
+	@Override
+	public String toString() {
+		return "PostDTO [id=" + id + ", "
+				+ (dataHoraPublicacao != null ? "dataHoraPublicacao=" + dataHoraPublicacao + ", " : "")
+				+ (titulo != null ? "titulo=" + titulo + ", " : "")
+				+ (descricao != null ? "descricao=" + descricao + ", " : "") + "visualizacoes=" + visualizacoes + ", "
+				+ (categoriaId != null ? "categoriaId=" + categoriaId + ", " : "")
+				+ (usuarioId != null ? "usuarioId=" + usuarioId + ", " : "")
+				+ (links != null ? "links=" + links + ", " : "") + (imagens != null ? "imagens=" + imagens + ", " : "")
+				+ (action != null ? "action=" + action : "") + "]";
+	}
+	
+	
 
 
 }

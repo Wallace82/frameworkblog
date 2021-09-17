@@ -12,13 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.frameworkdigital.blog.domain.ImagensPost;
+import com.frameworkdigital.blog.domain.Link;
 import com.frameworkdigital.blog.domain.Post;
 import com.frameworkdigital.blog.dto.PostDTO;
 import com.frameworkdigital.blog.dto.PostInput;
@@ -65,15 +65,41 @@ public class PostController {
 	}
 	
 	
-	@PutMapping(value = "/cadastrar",consumes = MediaType.ALL_VALUE)
+	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?>  cadastroComFotoFoto(@Valid PostInput postInput) throws IOException {
 
-		System.err.println("Entrou");
+		PostDTO postDTO = mapperPost.mapperPostInput(postInput);
+		postDTO.setUsuarioId(1l);//usuario logado
 		
-		List<MultipartFile> imagens = postInput.getImagens();
+		System.err.println("DTO -> "+ postDTO.toString());
 		
-		imagens.stream().forEach(obj -> System.out.print(obj.getName()));
-		return  ResponseEntity.ok(postInput);
+		Post post = postService.cadastrar(mapperPost.mapperPostDto(postDTO));
+		
+		System.err.println("obj -> "+ post.toString());
+		
+		postInput.getImagens().stream().forEach(e -> 
+				gravarImagem(new ImagensPost(0l,post,e.getOriginalFilename(),e.getContentType())));
+		
+		postInput.getLinks().stream().forEach(e -> 
+				gravarLinks(new Link(0l,e,post)));
+		
+		
+		
+		
+		return  ResponseEntity.ok("SUCESSO");
+		
+	}
+
+
+	private void gravarLinks(Link link) {
+		System.err.println("GRAVANDO link NO BANCO >"+link.toString());
+	}
+
+
+	private void gravarImagem(ImagensPost imagensPost) {
+		
+		System.err.println("GRAVANDO REFE IMAGEN NO BANCO >"+imagensPost.toString());
 		
 	}
 	

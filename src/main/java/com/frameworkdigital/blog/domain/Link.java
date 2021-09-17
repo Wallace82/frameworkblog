@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,4 +38,20 @@ public class Link {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Post post;
 
+	@Override
+	public String toString() {
+		return "Link [" + (id != null ? "id=" + id + ", " : "")
+				+ (descricao != null ? "descricao=" + descricao + ", " : "") + (post != null ? "post=" + post : "")
+				+ "]";
+	}
+
+	public Link(Long id, String descricao, Post post) {
+		super();
+		this.id = id;
+		this.descricao = descricao;
+		this.post = post;
+	}
+	
+	
+	
 }

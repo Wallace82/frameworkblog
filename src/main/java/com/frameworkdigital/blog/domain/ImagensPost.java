@@ -24,6 +24,8 @@ import lombok.Setter;
 public class ImagensPost {
 	
 	
+	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="IPO_CODIGO",unique=true, nullable=false)
@@ -39,5 +41,21 @@ public class ImagensPost {
   	@Column(name = "IPO_IMAGEM_CONTENTTYPE")
   	private String imagemContentType;
 
+	public ImagensPost(Long id, Post post, String imagemNome, String imagemContentType) {
+		super();
+		this.id = id;
+		this.post = post;
+		this.imagemNome = imagemNome;
+		this.imagemContentType = imagemContentType;
+	}
+
+	@Override
+	public String toString() {
+		return "ImagensPost [" + (id != null ? "id=" + id + ", " : "") + (post != null ? "post=" + post + ", " : "")
+				+ (imagemNome != null ? "imagemNome=" + imagemNome + ", " : "")
+				+ (imagemContentType != null ? "imagemContentType=" + imagemContentType : "") + "]";
+	}
+
 	
+  	
 }
