@@ -55,12 +55,6 @@ public class ImagensPost {
 		this.imagemContentType = imagemContentType;
 	}
 
-	@Override
-	public String toString() {
-		return "ImagensPost [" + (id != null ? "id=" + id + ", " : "") + (post != null ? "post=" + post + ", " : "")
-				+ (imagemNome != null ? "imagemNome=" + imagemNome + ", " : "")
-				+ (imagemContentType != null ? "imagemContentType=" + imagemContentType : "") + "]";
-	}
 
 	
   	

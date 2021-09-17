@@ -82,7 +82,7 @@ public class PostController {
 		Post post = postService.cadastrar(mapperPost.mapperPostDto(postDTO));
 		
 		postInput.getImagens().stream().forEach(e -> 
-				gravarImagem(new ImagensPost(0l,post,e.getOriginalFilename(),e.getContentType()),e));
+				gravarImagem(new ImagensPost(0l,post,e,e)));
 		
 		postInput.getLinks().stream().forEach(e -> 
 				gravarLinks(new Link(0l,e,post)));
@@ -101,9 +101,7 @@ public class PostController {
 	}
 
 
-	private void gravarImagem(ImagensPost imagensPost,MultipartFile imagem) {
-		FotoDTO retorno  = uploadFoto(imagem);
-		imagensPost.setImagemNome(retorno.getNome());
+	private void gravarImagem(ImagensPost imagensPost) {
 		postService.addImagem(imagensPost);
 		
 	}

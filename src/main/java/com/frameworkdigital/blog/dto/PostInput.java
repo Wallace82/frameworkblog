@@ -2,12 +2,6 @@ package com.frameworkdigital.blog.dto;
 
 import java.util.List;
 
-import org.springframework.http.MediaType;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.frameworkdigital.blog.core.validation.FileContentType;
-import com.frameworkdigital.blog.core.validation.FileSize;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,13 +23,7 @@ public class PostInput {
 	
 	private Long categoriaId;
 	
+	private List<String> imagens;
 	
-	@FileSize(max = "10240KB")
-	@FileContentType(allowed = { MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
-	private List<MultipartFile> imagens;
-	
-	
-	
-
 
 }
