@@ -1,4 +1,4 @@
-package com.frameworkdigital.blog.config;
+package com.frameworkdigital.blog.config.token;
 
 import java.util.HashMap;
 import java.util.Map;

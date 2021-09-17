@@ -17,6 +17,8 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import com.frameworkdigital.blog.config.token.CustomTokenEnhancer;
+
 @Profile("oauth-security")
 @Configuration
 @EnableAuthorizationServer
@@ -32,7 +34,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
 		.withClient("frameworkblog")
-		.secret("$2a$12$vKgj05QhmDVI59CLnEIC..EdkO8UZ4ki9zVj8jeBMlKh/zIutk5VS")//frameworkblog@123   Bcrypt
+		.secret("frameworkblog@123")//frameworkblog@123   Bcrypt
 		.scopes("read", "write")
 		.authorizedGrantTypes("password", "refresh_token")
 		.accessTokenValiditySeconds(3600 * 24)

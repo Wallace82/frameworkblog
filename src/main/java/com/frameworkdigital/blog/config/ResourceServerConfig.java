@@ -7,9 +7,11 @@ import java.util.stream.Collectors;
 
 import javax.crypto.spec.SecretKeySpec;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,11 +26,24 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 
+import com.frameworkdigital.blog.security.AuthProviderService;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfig extends WebSecurityConfigurerAdapter{
 
+	
+	 @Autowired(required=true)
+	 private AuthProviderService authProvider;
+	
+	 @Bean
+		@Override
+		protected AuthenticationManager authenticationManager() throws Exception {
+			return super.authenticationManager();
+		}
+	 
+	
     @Override
     public void configure(HttpSecurity http) throws Exception {
         
@@ -49,11 +64,12 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter{
         return NimbusJwtDecoder.withSecretKey(secretKey).build();
     }
     
-    @Bean
     @Override
-    protected AuthenticationManager authenticationManager() throws Exception {        
-        return super.authenticationManager();
-    }
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authProvider);
+
+	}
+	
 
     @Bean
     public PasswordEncoder passwordEncoder() {
