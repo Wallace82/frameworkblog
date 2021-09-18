@@ -4,6 +4,7 @@ package com.frameworkdigital.blog.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.frameworkdigital.blog.domain.Comentario;
 import com.frameworkdigital.blog.domain.ImagensPost;
 import com.frameworkdigital.blog.domain.Link;
 import com.frameworkdigital.blog.domain.Post;
@@ -40,6 +42,7 @@ import com.frameworkdigital.blog.exception.PostNaoEncontradoException;
 import com.frameworkdigital.blog.mapper.MapperComentario;
 import com.frameworkdigital.blog.mapper.MapperPost;
 import com.frameworkdigital.blog.page.Paginacao;
+import com.frameworkdigital.blog.repository.ComentarioRepository;
 import com.frameworkdigital.blog.sevice.PostService;
 import com.frameworkdigital.blog.sevice.UsuarioService;
 import com.frameworkdigital.blog.storage.FotoStorage;
@@ -70,6 +73,8 @@ public class PostController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Autowired
+	private ComentarioRepository comentarioRepository;
 	
 	
 	@GetMapping("/{id}")
@@ -112,6 +117,32 @@ public class PostController {
 			
 			Post post =  postService.buscarPost(comentarioDTO.getPostId());
 			return ResponseEntity.ok(mapperPost.mapperPost(post));
+		} catch (PostNaoEncontradoException msg) {
+			ResponseEntity.notFound().build();
+			return new ResponseEntity<>(msg.getMessage(), HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
+	@ApiOperation(value = "Exclui um comentário para o post selecionado")
+	@DeleteMapping(path = "/excluir/comentario/{id}"   )
+		public ResponseEntity<?>  excluircomentar(@PathVariable Long id) {
+		try {
+			
+			Optional<Comentario> comentarioOpt =  comentarioRepository.findById(id);
+			
+			Usuario  usuario = usuarioService.buscarUsuario(1l);
+			
+			if(usuario.getId().equals(comentarioOpt.get().getUsuario().getId())) {
+				postService.excluirComentario(comentarioOpt.get());
+			}
+			else {
+				return new ResponseEntity<>("SEM PERMISSAO PARA EXCLUIR ESTE COMENTÁRIO", HttpStatus.NOT_FOUND);
+			}
+			
+			Post post =  postService.buscarPost(comentarioOpt.get().getPost().getId());
+			return ResponseEntity.ok(mapperPost.mapperPost(post));
+			
 		} catch (PostNaoEncontradoException msg) {
 			ResponseEntity.notFound().build();
 			return new ResponseEntity<>(msg.getMessage(), HttpStatus.NOT_FOUND);
@@ -194,7 +225,7 @@ public class PostController {
 				postService.deletePost(post);
 			}
 			else {
-				return ResponseEntity.ok("Somente o criador pode deletar o Post");
+				return new ResponseEntity<>("SEM PERMISSAO PARA EXCLUIR ESTE POST", HttpStatus.NOT_FOUND);
 			}
 
 			return ResponseEntity.ok("Excluido com sucesso");

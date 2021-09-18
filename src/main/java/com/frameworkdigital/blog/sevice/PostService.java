@@ -111,6 +111,13 @@ public class PostService {
 			comentario.setDataHoraPublicacao(LocalDateTime.now());
 			comentarioRepository.save(comentario);
 	}
+
+
+	public void excluirComentario(Comentario comentario) {
+		
+		comentarioRepository.delete(comentario);
+		
+	}
 	
 
 }
