@@ -9,8 +9,8 @@ public class CategoriaNaoEncontradoException extends EntidadeNaoEncontradaExcept
 		super(mensagem);
 	}
 	
-	public CategoriaNaoEncontradoException(Long postId) {
-		this(String.format("Não existe um cadastro de categoria com código %d", postId));
+	public CategoriaNaoEncontradoException(Long categoriaId) {
+		this(String.format("Não existe um cadastro de categoria com código %d", categoriaId));
 	}
 	
 }

@@ -26,7 +26,7 @@ public class Categoria {
 	private Long id;
 	
 	@Column(name="CAT_NOME")
-	private String titulo;
+	private String nome;
 	
 	@Column(name="CAT_ATIVO")
 	private boolean ativo;

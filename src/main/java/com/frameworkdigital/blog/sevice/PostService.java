@@ -4,12 +4,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.frameworkdigital.blog.domain.ImagensPost;
 import com.frameworkdigital.blog.domain.Link;
 import com.frameworkdigital.blog.domain.Post;
 import com.frameworkdigital.blog.exception.PostNaoEncontradoException;
+import com.frameworkdigital.blog.filter.PostFilter;
 import com.frameworkdigital.blog.repository.ImagensPostRepository;
 import com.frameworkdigital.blog.repository.LinkRepository;
 import com.frameworkdigital.blog.repository.PostRepository;
@@ -62,6 +64,14 @@ public class PostService {
 	public Post addImagem(ImagensPost imagensPost) {
 		imagensPost = imagensPostRepository.save(imagensPost);
 		return imagensPost.getPost();
+	}
+
+
+	public List<Post> buscarPostsParametro(String parametro,Pageable pageable) {
+		
+		PostFilter postFilter = new PostFilter();
+		postFilter.setParametro(parametro);
+		return postRepository.findByFilter(postFilter,pageable);
 	}
 	
 

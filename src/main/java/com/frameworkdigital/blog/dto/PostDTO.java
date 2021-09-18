@@ -30,6 +30,8 @@ public class PostDTO {
 	
 	private Long usuarioId;
 	
+	private String usuarioNome;
+	
 	private List<LinkDTO> links;
 	
 	

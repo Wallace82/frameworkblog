@@ -1,5 +1,6 @@
 package com.frameworkdigital.blog.controller;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -25,12 +28,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.frameworkdigital.blog.domain.ImagensPost;
 import com.frameworkdigital.blog.domain.Link;
 import com.frameworkdigital.blog.domain.Post;
-import com.frameworkdigital.blog.dto.ArquivoDTO;
 import com.frameworkdigital.blog.dto.FotoDTO;
+import com.frameworkdigital.blog.dto.LinkDTO;
 import com.frameworkdigital.blog.dto.PostDTO;
 import com.frameworkdigital.blog.dto.PostInput;
 import com.frameworkdigital.blog.exception.PostNaoEncontradoException;
 import com.frameworkdigital.blog.mapper.MapperPost;
+import com.frameworkdigital.blog.page.Paginacao;
 import com.frameworkdigital.blog.sevice.PostService;
 import com.frameworkdigital.blog.storage.FotoStorage;
 import com.frameworkdigital.blog.storage.FotoStorageRunnable;
@@ -63,9 +67,24 @@ public class PostController {
 
 	
 	@GetMapping
-	public List<PostDTO>  listar() {
-		List<Post> posts =  postService.buscarPosts();
-		return  mapperPost.mapperPostList(posts);
+	public Paginacao  filtrar(
+			@RequestParam(value="parametro", required=false)   String parametro,
+			Pageable pageable
+			) {
+		
+		
+		Paginacao paginacao = new Paginacao();
+		paginacao.setDraw(pageable.getPageNumber());
+		paginacao.setStart(Integer.valueOf(pageable.getOffset()+""));
+		paginacao.setSearch(parametro);
+		
+		
+		List<Post> posts =  postService.buscarPostsParametro(parametro,pageable);
+		paginacao.setRecordsTotal(posts.size());
+		Paginacao retorno = new Paginacao(paginacao,mapperPost.mapperPostList(posts));
+		return retorno;
+	
+
 	}
 	
 	
@@ -108,7 +127,7 @@ public class PostController {
 	
 	
 	@CrossOrigin(maxAge = 1800, origins = {"http://localhost:4200"})
-	@PutMapping(name ="/imagens", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PutMapping(path = "/imagens",  name ="imagens", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public FotoDTO uploadFotoUnica( MultipartFile foto) {
 		DeferredResult<FotoDTO> resultado = new DeferredResult<>();
 		String caminho = "ImgensPosts"+File.separator;

@@ -80,22 +80,6 @@ public class Post {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Usuario usuario;
 
-	@Override
-	public String toString() {
-		return "Post [" + (id != null ? "id=" + id + ", " : "")
-				+ (dataHoraPublicacao != null ? "dataHoraPublicacao=" + dataHoraPublicacao + ", " : "")
-				+ (titulo != null ? "titulo=" + titulo + ", " : "")
-				+ (descricao != null ? "descricao=" + descricao + ", " : "") + "visualizacoes=" + visualizacoes + ", "
-				+ (categoria != null ? "categoria=" + categoria + ", " : "")
-				+ (comentarios != null ? "comentarios=" + comentarios + ", " : "")
-				+ (curtidas != null ? "curtidas=" + curtidas + ", " : "")
-				+ (imagensPost != null ? "imagensPost=" + imagensPost + ", " : "")
-				+ (links != null ? "links=" + links + ", " : "") + (usuario != null ? "usuario=" + usuario : "") + "]";
-	}
-
-	
-	
-	
 	
 	
 }
