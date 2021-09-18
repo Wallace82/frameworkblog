@@ -9,6 +9,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -170,29 +172,15 @@ public class PostController {
 	
 	@ApiOperation(value = "Retorna uma lista de posts conforme filtro")
 	@GetMapping
-	public Paginacao  filtrar(
+	public ResponseEntity<Page<PostDTO>>  filtrar(
 			@RequestParam(value = "search[value]", required=false) String parametro,
-			@RequestParam(value = "draw", required=false, defaultValue = "0") int draw,
-			@RequestParam(value = "start", required=false, defaultValue = "0") int start,
-			@RequestParam(value = "length", required=false, defaultValue = "10") int length
+			Pageable pageable
 			) {
 		
-		
-		Paginacao paginacao = new Paginacao();
-		paginacao.setDraw(draw);
-		paginacao.setStart(start);
-		paginacao.setSearch(parametro);
-		
-		
-		Pageable pageable = PageRequest.of(start, length);
-		
 		List<Post> posts =  postService.buscarPostsParametro(parametro,pageable);
-		paginacao.setRecordsTotal(posts.size());
-		
-		paginacao = new Paginacao(paginacao,mapperPost.mapperPostList(posts));
-		return paginacao;
-	
-
+		List<PostDTO> retorno = mapperPost.mapperPostList(posts);
+		Page<PostDTO> page = new PageImpl<>(retorno);
+		return ResponseEntity.ok().body(page) ;
 	}
 	
 	
