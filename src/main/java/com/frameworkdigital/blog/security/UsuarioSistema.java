@@ -2,12 +2,11 @@ package com.frameworkdigital.blog.security;
 
 import java.util.Collection;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.frameworkdigital.blog.domain.Usuario;
 
-public class UsuarioSistema extends UsernamePasswordAuthenticationToken {
+public class UsuarioSistema extends User {
 
 	private static final long serialVersionUID = 1L;
 

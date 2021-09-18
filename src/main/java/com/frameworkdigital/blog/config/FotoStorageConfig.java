@@ -15,4 +15,6 @@ public class FotoStorageConfig {
 		return new FotoStorageLocal();
 	}
 	
+
+	
 }
