@@ -52,20 +52,17 @@ public class Comentario {
 	private Post post;
 	
 	
-	@JoinColumn(name = "FOT_CODIGO", referencedColumnName = "FOT_CODIGO")
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	private Fotos foto;
 
 
-	public Comentario(Long id, LocalDateTime dataHoraPublicacao, String descricao, Usuario usuario, Post post,
-			Fotos foto) {
+
+	public Comentario(Long id, LocalDateTime dataHoraPublicacao, String descricao, Usuario usuario, Post post) {
 		super();
 		this.id = id;
 		this.dataHoraPublicacao = dataHoraPublicacao;
 		this.descricao = descricao;
 		this.usuario = usuario;
 		this.post = post;
-		this.foto = foto;
+		
 	}
 
 	

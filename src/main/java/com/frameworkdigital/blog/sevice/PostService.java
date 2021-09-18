@@ -96,7 +96,7 @@ public class PostService {
 
 
 	public void curtir(Post post, Usuario usuario) {
-		Curtidas  curtidas = new Curtidas(0l,LocalDateTime.now(),usuario,post,null);
+		Curtidas  curtidas = new Curtidas(0l,LocalDateTime.now(),usuario,post);
 		
 		List<Curtidas> curtidasList = curtidasRepository.findByPostIdAndUsuarioId(post.getId(),usuario.getId());
 		
@@ -116,6 +116,13 @@ public class PostService {
 	public void excluirComentario(Comentario comentario) {
 		
 		comentarioRepository.delete(comentario);
+		
+	}
+
+
+	public Post contabilizarVisualizacao(Post post) {
+		post.setVisualizacoes(post.getVisualizacoes()+1);
+		return postRepository.save(post);
 		
 	}
 	

@@ -1,5 +1,6 @@
 package com.frameworkdigital.blog.sevice;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,7 @@ public class UsuarioService {
 					String.format("Já existe um usuário cadastrado com o e-mail %s", usuario.getEmail()));
 		}
 		
+		usuario.setDataCadastro(LocalDate.now());
 		return usuarioRepository.save(usuario);
 	}
 	

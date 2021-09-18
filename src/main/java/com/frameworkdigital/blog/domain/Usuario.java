@@ -57,9 +57,7 @@ public class Usuario {
 	@JsonIgnore
 	private List<Post> posts;
 	
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-	@JsonIgnore
-	private List<GaleriaFotos> galerias;
+
 	
 	
 	public boolean senhaCoincideCom(String senha) {

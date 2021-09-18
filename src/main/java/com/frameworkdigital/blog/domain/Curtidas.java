@@ -14,7 +14,6 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,18 +48,15 @@ public class Curtidas {
 	private Post post;
 	
 	
-	@JoinColumn(name = "FOT_CODIGO", referencedColumnName = "FOT_CODIGO")
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	private Fotos foto;
 
 
-	public Curtidas(Long i, LocalDateTime dataHoraPublicacao, Usuario usuario, Post post, Fotos foto) {
+	public Curtidas(Long i, LocalDateTime dataHoraPublicacao, Usuario usuario, Post post) {
 		super();
 		this.id = i;
 		this.dataHoraPublicacao = dataHoraPublicacao;
 		this.usuario = usuario;
 		this.post = post;
-		this.foto = foto;
+		
 	}
 	
 }

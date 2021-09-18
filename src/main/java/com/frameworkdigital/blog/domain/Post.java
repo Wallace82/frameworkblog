@@ -55,9 +55,12 @@ public class Post {
 	@Column(name="POS_VISUALIZACOES")
 	private int visualizacoes;
 	
+	@Column(name="POS_TIPO_POSTAGEM")
+	private int tipoPostagem;
+	
 	
 	@JoinColumn(name = "CAT_CODIGO", referencedColumnName = "CAT_CODIGO")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	private Categoria categoria;
 	
 
@@ -89,11 +92,11 @@ public class Post {
 	private int totalComentarios;
 	
 	public int getTotalCurtidas() {
-		return curtidas.size();
+		return curtidas==null?0:curtidas.size();
 	}
 	
 	public int getTotalComentarios() {
-		return comentarios.size();
+		return comentarios==null?0: comentarios.size();
 	}
 	
 }

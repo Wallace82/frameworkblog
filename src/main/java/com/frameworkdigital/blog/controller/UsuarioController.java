@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,6 +63,11 @@ public class UsuarioController {
 		
 		try {
 			Usuario usuario = mapperUsuario.mapperDtoToEntity(usuarioDTO);
+			
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			usuario.setSenha(encoder.encode(usuarioDTO.getSenha()));
+			
+			
 			usuario = usuarioService.salvar(usuario);
 			return ResponseEntity.ok(mapperUsuario.mapperEntityToDto(usuario));
 		} catch (NegocioException msg) {
@@ -73,8 +79,11 @@ public class UsuarioController {
 	
 	@PutMapping("/{usuarioId}")
 	public UsuarioDTO atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioDTO usuarioDTO) {
+		
 		Usuario usuarioAtual = usuarioService.buscarOuFalhar(usuarioId);
 		mapperUsuario.copyDtoToEntity(usuarioDTO, usuarioAtual);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		usuarioAtual.setSenha(encoder.encode(usuarioDTO.getSenha()));
 		usuarioAtual = usuarioService.salvar(usuarioAtual);
 		return mapperUsuario.mapperEntityToDto(usuarioAtual);
 	}

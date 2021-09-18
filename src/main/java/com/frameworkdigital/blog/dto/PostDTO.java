@@ -40,10 +40,11 @@ public class PostDTO {
 	private int totalCurtidas;
 	
 	private int totalComentarios;
+	
+	private int tipoPostagem;
 
 	
-	
-	private String action = "posts";
+	private String action = tipoPostagem==1?"posts":"galerias";
 	
 	public String getAction() {
 		return "/"+action+"/"+id;

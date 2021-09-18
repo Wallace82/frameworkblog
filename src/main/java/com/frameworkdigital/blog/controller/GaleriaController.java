@@ -1,6 +1,5 @@
 package com.frameworkdigital.blog.controller;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -30,14 +29,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.frameworkdigital.blog.domain.Comentario;
 import com.frameworkdigital.blog.domain.ImagensPost;
-import com.frameworkdigital.blog.domain.Link;
 import com.frameworkdigital.blog.domain.Post;
 import com.frameworkdigital.blog.domain.Usuario;
 import com.frameworkdigital.blog.dto.ComentarioDTO;
 import com.frameworkdigital.blog.dto.ComentarioPostInput;
 import com.frameworkdigital.blog.dto.ImagemPostDTO;
 import com.frameworkdigital.blog.dto.PostDTO;
-import com.frameworkdigital.blog.dto.PostInput;
+import com.frameworkdigital.blog.dto.PostGaleriaInput;
 import com.frameworkdigital.blog.exception.PostNaoEncontradoException;
 import com.frameworkdigital.blog.mapper.MapperComentario;
 import com.frameworkdigital.blog.mapper.MapperPost;
@@ -50,14 +48,12 @@ import com.frameworkdigital.blog.storage.FotoStorageRunnable;
 
 import io.swagger.annotations.ApiOperation;
 
-
-
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/galerias")
 @CrossOrigin(maxAge = 1800, origins = {"http://localhost:4200"})
-public class PostController {
-	
-	
+public class GaleriaController {
+
+
 	@Autowired
 	private FotoStorage fotoStorage;
 	
@@ -76,15 +72,13 @@ public class PostController {
 	@Autowired
 	private ComentarioRepository comentarioRepository;
 	
-	private static final int tipoPostagem = 1;
+	private static final int tipoPostagem = 2;
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?>  buscar(@PathVariable Long id) {
 		try {
 			 Post post =  postService.buscarPost(id);
-			 
 			 postService.contabilizarVisualizacao(post);
-			 
 			 return ResponseEntity.ok(mapperPost.mapperPost(post));
 		} catch (PostNaoEncontradoException msg) {
 			ResponseEntity.notFound().build();
@@ -92,7 +86,7 @@ public class PostController {
 		}
 	}
 	
-	@ApiOperation(value = "Cadastra uma curtida para o post selecionado")
+	@ApiOperation(value = "Cadastra uma curtida para uma galeria selecionada")
 	@PutMapping(path = "/curtir/{id}",  name ="curtir" )
 		public ResponseEntity<?>  curtir(@PathVariable Long id) {
 		try {
@@ -109,7 +103,7 @@ public class PostController {
 	}
 	
 	
-	@ApiOperation(value = "Cadastra uma comentário para o post selecionado")
+	@ApiOperation(value = "Cadastra uma comentário uma galeria selecionada")
 	@PutMapping(path = "/comentar",  name ="comentar" )
 		public ResponseEntity<?>  comentar(@RequestBody @Valid ComentarioPostInput comentarioPostInput ) {
 		try {
@@ -128,7 +122,7 @@ public class PostController {
 	}
 	
 	
-	@ApiOperation(value = "Exclui um comentário para o post selecionado")
+	@ApiOperation(value = "Exclui um comentário para uma galeria selecionada")
 	@DeleteMapping(path = "/excluir/comentario/{id}"   )
 		public ResponseEntity<?>  excluircomentar(@PathVariable Long id) {
 		try {
@@ -153,7 +147,8 @@ public class PostController {
 		}
 	}
 	
-	@ApiOperation(value = "Retorna uma lista de comentários do post")
+	
+	@ApiOperation(value = "Retorna uma lista de comentários uma galeria selecionada")
 	@GetMapping("/comentarios/{id}")
 	public ResponseEntity<?>  listaComentarios(@PathVariable Long id) {
 		try {
@@ -168,7 +163,7 @@ public class PostController {
 	}
 
 	
-	@ApiOperation(value = "Retorna uma lista de posts conforme filtro")
+	@ApiOperation(value = "Retorna uma lista de galerias conforme filtro")
 	@GetMapping
 	public Paginacao  filtrar(
 			@RequestParam(value = "search[value]", required=false) String parametro,
@@ -199,9 +194,9 @@ public class PostController {
 	
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?>  cadastroComFoto(@RequestBody @Valid PostInput postInput) throws IOException {
+	public ResponseEntity<?>  cadastroComFoto(@RequestBody @Valid PostGaleriaInput postInput) throws IOException {
 
-		PostDTO postDTO = mapperPost.mapperPostInput(postInput);
+		PostDTO postDTO = mapperPost.mapperGleriaPostInput(postInput);
 		postDTO.setId(0l);
 		postDTO.setTipoPostagem(tipoPostagem);
 		
@@ -212,8 +207,6 @@ public class PostController {
 		postInput.getImagens().stream().forEach(e -> 
 				gravarImagem(new ImagensPost(0l,post,e,e)));
 		
-		postInput.getLinks().stream().forEach(e -> 
-				gravarLinks(new Link(0l,e,post)));
 		
 		
 		return  buscar(post.getId());
@@ -221,7 +214,6 @@ public class PostController {
 	}
 	
 	@DeleteMapping()
-	
 	public ResponseEntity<?>  excluir(Long id) throws IOException {
 		Usuario usuario = usuarioService.buscarUsuario(1l);
 		try {
@@ -231,13 +223,13 @@ public class PostController {
 				postService.deletePost(post);
 			}
 			else {
-				return new ResponseEntity<>("SEM PERMISSAO PARA EXCLUIR ESTE POST", HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>("SEM PERMISSAO PARA EXCLUIR ESTA GALERIA", HttpStatus.NOT_FOUND);
 			}
 
 			return ResponseEntity.ok("Excluido com sucesso");
 		} catch (PostNaoEncontradoException msg) {
 			ResponseEntity.notFound().build();
-			return new ResponseEntity<>("Erro ao excluir post ", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Erro ao excluir GALERIA ", HttpStatus.NOT_FOUND);
 		}
 		
 		
@@ -263,11 +255,6 @@ public class PostController {
 	
 	
 	
-	private void gravarLinks(Link link) {
-		postService.addLink(link);
-	}
-	
-	
 	private void gravarImagem(ImagensPost imagensPost) {
 		postService.addImagem(imagensPost);
 		
@@ -275,5 +262,6 @@ public class PostController {
 	
 
 	
-
+	
+	
 }

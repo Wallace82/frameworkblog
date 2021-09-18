@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ImagemPostDTO {
 	
+	
 	private Long id;
 	private Long postId;
   	private String imagemNome;
@@ -19,5 +20,14 @@ public class ImagemPostDTO {
   	public String getAction() {
   		return "/"+action+"/"+id;
   	}
+
+	public ImagemPostDTO(String imagemNome, String imagemContentType, String action) {
+		super();
+		this.imagemNome = imagemNome;
+		this.imagemContentType = imagemContentType;
+		this.action = action;
+	}
+  	
+  	
 	
 }
