@@ -7,11 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.frameworkdigital.blog.domain.Comentario;
+import com.frameworkdigital.blog.domain.Curtidas;
 import com.frameworkdigital.blog.domain.ImagensPost;
 import com.frameworkdigital.blog.domain.Link;
 import com.frameworkdigital.blog.domain.Post;
+import com.frameworkdigital.blog.domain.Usuario;
+import com.frameworkdigital.blog.dto.ComentarioDTO;
 import com.frameworkdigital.blog.exception.PostNaoEncontradoException;
 import com.frameworkdigital.blog.filter.PostFilter;
+import com.frameworkdigital.blog.mapper.MapperComentario;
+import com.frameworkdigital.blog.repository.ComentarioRepository;
+import com.frameworkdigital.blog.repository.CurtidasRepository;
 import com.frameworkdigital.blog.repository.ImagensPostRepository;
 import com.frameworkdigital.blog.repository.LinkRepository;
 import com.frameworkdigital.blog.repository.PostRepository;
@@ -27,6 +34,14 @@ public class PostService {
 	
 	@Autowired
 	private ImagensPostRepository imagensPostRepository;
+	@Autowired
+	private CurtidasRepository curtidasRepository;
+	
+	@Autowired
+	private MapperComentario mapperComentario;
+	
+	@Autowired
+	private ComentarioRepository comentarioRepository;
 	
 	public Post buscarPost(Long id) {
 		return buscarOuFalhar(id);
@@ -77,6 +92,24 @@ public class PostService {
 
 	public void deletePost(Post post) {
 		postRepository.delete(post);
+	}
+
+
+	public void curtir(Post post, Usuario usuario) {
+		Curtidas  curtidas = new Curtidas(0l,LocalDateTime.now(),usuario,post,null);
+		
+		List<Curtidas> curtidasList = curtidasRepository.findByPostIdAndUsuarioId(post.getId(),usuario.getId());
+		
+		if(curtidasList.size()==0) {
+			curtidasRepository.save(curtidas);
+		}
+	
+	}
+	
+	public void comentar(ComentarioDTO comentarioDto) {
+			Comentario comentario = mapperComentario.mapperDtoToEntity(comentarioDto);
+			comentario.setDataHoraPublicacao(LocalDateTime.now());
+			comentarioRepository.save(comentario);
 	}
 	
 

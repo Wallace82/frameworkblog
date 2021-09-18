@@ -37,6 +37,11 @@ public class PostDTO {
 	
 	private List<ImagemPostDTO> imagens;
 	
+	private int totalCurtidas;
+	
+	private int totalComentarios;
+
+	
 	
 	private String action = "posts";
 	

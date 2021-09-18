@@ -23,7 +23,7 @@ public class ComentarioDTO {
 	private Long postId;
 	
 	private Long fotoId;
-
+	
 	private String action = "comentarios";
 	
 	public String getAction() {

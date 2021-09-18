@@ -48,12 +48,12 @@ public class Comentario {
 	private Usuario usuario;
 	
 	@JoinColumn(name = "POS_CODIGO", referencedColumnName = "POS_CODIGO")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	private Post post;
 	
 	
 	@JoinColumn(name = "FOT_CODIGO", referencedColumnName = "FOT_CODIGO")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	private Fotos foto;
 
 

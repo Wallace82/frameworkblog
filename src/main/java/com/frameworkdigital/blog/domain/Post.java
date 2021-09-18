@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -81,6 +82,18 @@ public class Post {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Usuario usuario;
 
+	@Transient
+	private int totalCurtidas;
 	
+	@Transient
+	private int totalComentarios;
+	
+	public int getTotalCurtidas() {
+		return curtidas.size();
+	}
+	
+	public int getTotalComentarios() {
+		return comentarios.size();
+	}
 	
 }
