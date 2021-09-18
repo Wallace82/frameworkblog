@@ -41,7 +41,6 @@ import com.frameworkdigital.blog.dto.PostGaleriaInput;
 import com.frameworkdigital.blog.exception.PostNaoEncontradoException;
 import com.frameworkdigital.blog.mapper.MapperComentario;
 import com.frameworkdigital.blog.mapper.MapperPost;
-import com.frameworkdigital.blog.page.Paginacao;
 import com.frameworkdigital.blog.repository.ComentarioRepository;
 import com.frameworkdigital.blog.sevice.PostService;
 import com.frameworkdigital.blog.sevice.UsuarioService;
