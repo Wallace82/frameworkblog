@@ -1,6 +1,7 @@
 package com.frameworkdigital.blog.sevice;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -11,7 +12,6 @@ import com.frameworkdigital.blog.domain.Usuario;
 import com.frameworkdigital.blog.exception.NegocioException;
 import com.frameworkdigital.blog.exception.UsuarioNaoEncontradoException;
 import com.frameworkdigital.blog.repository.UsuarioRepository;
-import com.google.common.base.Optional;
 
 @Service
 public class UsuarioService {

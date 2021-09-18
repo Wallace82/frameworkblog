@@ -1,5 +1,6 @@
 package com.frameworkdigital.blog.config;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,7 +20,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.frameworkdigital.blog.controller"))
                 .paths(PathSelectors.any())
-                .build();
+               .build();
 //                .securitySchemes(Arrays.asList(new ApiKey("Token Access", HttpHeaders.AUTHORIZATION, In.HEADER.name())))
 //                .securityContexts(Arrays.asList(securityContext()));
 
