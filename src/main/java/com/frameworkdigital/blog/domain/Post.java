@@ -4,6 +4,7 @@ package com.frameworkdigital.blog.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -59,20 +60,20 @@ public class Post {
 	private Categoria categoria;
 	
 
-	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Comentario> comentarios;
 	
 	
-	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Curtidas> curtidas;
 	
-	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private List<ImagensPost> imagensPost;
 	
-	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Link> links;
 	

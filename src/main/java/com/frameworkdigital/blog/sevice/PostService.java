@@ -73,6 +73,11 @@ public class PostService {
 		postFilter.setParametro(parametro);
 		return postRepository.findByFilter(postFilter,pageable);
 	}
+
+
+	public void deletePost(Post post) {
+		postRepository.delete(post);
+	}
 	
 
 }

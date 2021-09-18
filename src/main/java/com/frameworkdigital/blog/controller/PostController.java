@@ -8,16 +8,17 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -28,16 +29,18 @@ import org.springframework.web.multipart.MultipartFile;
 import com.frameworkdigital.blog.domain.ImagensPost;
 import com.frameworkdigital.blog.domain.Link;
 import com.frameworkdigital.blog.domain.Post;
+import com.frameworkdigital.blog.domain.Usuario;
 import com.frameworkdigital.blog.dto.FotoDTO;
-import com.frameworkdigital.blog.dto.LinkDTO;
 import com.frameworkdigital.blog.dto.PostDTO;
 import com.frameworkdigital.blog.dto.PostInput;
 import com.frameworkdigital.blog.exception.PostNaoEncontradoException;
 import com.frameworkdigital.blog.mapper.MapperPost;
 import com.frameworkdigital.blog.page.Paginacao;
 import com.frameworkdigital.blog.sevice.PostService;
+import com.frameworkdigital.blog.sevice.UsuarioService;
 import com.frameworkdigital.blog.storage.FotoStorage;
 import com.frameworkdigital.blog.storage.FotoStorageRunnable;
+
 
 
 @RestController
@@ -54,6 +57,9 @@ public class PostController {
 	@Autowired
 	private MapperPost mapperPost;
 	
+	@Autowired
+	private UsuarioService usuarioService;
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<?>  buscar(@PathVariable Long id) {
 		try {
@@ -68,21 +74,26 @@ public class PostController {
 	
 	@GetMapping
 	public Paginacao  filtrar(
-			@RequestParam(value="parametro", required=false)   String parametro,
-			Pageable pageable
+			@RequestParam(value = "search[value]", required=false) String parametro,
+			@RequestParam(value = "draw", required=false, defaultValue = "0") int draw,
+			@RequestParam(value = "start", required=false, defaultValue = "0") int start,
+			@RequestParam(value = "length", required=false, defaultValue = "10") int length
 			) {
 		
 		
 		Paginacao paginacao = new Paginacao();
-		paginacao.setDraw(pageable.getPageNumber());
-		paginacao.setStart(Integer.valueOf(pageable.getOffset()+""));
+		paginacao.setDraw(draw);
+		paginacao.setStart(start);
 		paginacao.setSearch(parametro);
 		
 		
+		Pageable pageable = PageRequest.of(start, length);
+		
 		List<Post> posts =  postService.buscarPostsParametro(parametro,pageable);
 		paginacao.setRecordsTotal(posts.size());
-		Paginacao retorno = new Paginacao(paginacao,mapperPost.mapperPostList(posts));
-		return retorno;
+		
+		paginacao = new Paginacao(paginacao,mapperPost.mapperPostList(posts));
+		return paginacao;
 	
 
 	}
@@ -108,6 +119,28 @@ public class PostController {
 		
 		
 		return  buscar(post.getId());
+		
+	}
+	
+	@DeleteMapping()
+	public ResponseEntity<?>  excluir(Long id) throws IOException {
+		Usuario usuario = usuarioService.buscarUsuario(1l);
+		try {
+			Post post =  postService.buscarPost(id);
+			
+			if(post.getUsuario().getId().equals(usuario.getId())) {
+				postService.deletePost(post);
+			}
+			else {
+				return ResponseEntity.ok("Somente o criador pode deletar o Post");
+			}
+
+			return ResponseEntity.ok("Excluido com sucesso");
+		} catch (PostNaoEncontradoException msg) {
+			ResponseEntity.notFound().build();
+			return new ResponseEntity<>("Erro ao excluir post ", HttpStatus.NOT_FOUND);
+		}
+		
 		
 	}
 
