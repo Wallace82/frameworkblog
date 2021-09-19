@@ -45,7 +45,7 @@ public class Post {
 	private LocalDateTime dataHoraPublicacao;
 	
 	
-	@Column(name="POS_TITULO",nullable = false)
+	@Column(name="POS_TITULO",nullable = false,length = 500)
 	private String titulo;
 	
 	

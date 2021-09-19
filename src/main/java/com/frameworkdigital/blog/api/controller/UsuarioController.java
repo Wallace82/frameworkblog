@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +43,17 @@ public class UsuarioController {
 	public ResponseEntity<?>  buscar(@PathVariable Long id) {
 		try {
 			Usuario usuario =  usuarioService.buscarUsuario(id);
+			 return ResponseEntity.ok(mapperUsuario.mapperEntityToDto(usuario));
+		} catch (UsuarioNaoEncontradoException msg) {
+			ResponseEntity.notFound().build();
+			return new ResponseEntity<>(msg.getMessage(), HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@GetMapping("/usuario")
+	public ResponseEntity<?>  buscarUsuario(@AuthenticationPrincipal Object usuarioLogado) {
+		try {
+			Usuario usuario = usuarioService.recuperarLogado(usuarioLogado);
 			 return ResponseEntity.ok(mapperUsuario.mapperEntityToDto(usuario));
 		} catch (UsuarioNaoEncontradoException msg) {
 			ResponseEntity.notFound().build();
