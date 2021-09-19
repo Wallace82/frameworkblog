@@ -44,7 +44,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
             "/swagger-resources/**",
             "/configuration/security",
             "/webjars/**",
-            "/api/**",
+            "/usuarios/**",
             "/swagger-ui.html"
 //	        "/**"
 	};
@@ -55,6 +55,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
         
         http.authorizeRequests()
         .antMatchers(HttpMethod.GET, AUTH_WHITELIST).permitAll()
+        .antMatchers(HttpMethod.POST, AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()
             .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

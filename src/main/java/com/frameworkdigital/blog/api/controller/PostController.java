@@ -132,6 +132,7 @@ public class PostController {
 	@ApiOperation(value = "Exclui um comentário para o post selecionado")
 	@DeleteMapping(path = "/excluir/comentario/{id}"   )
 		public ResponseEntity<?>  excluircomentar(@PathVariable Long id,@AuthenticationPrincipal Object usuarioLogado) {
+		
 		try {
 			
 			Optional<Comentario> comentarioOpt =  comentarioRepository.findById(id);

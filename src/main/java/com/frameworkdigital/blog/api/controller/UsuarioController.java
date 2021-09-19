@@ -29,6 +29,7 @@ import com.frameworkdigital.blog.domain.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin(maxAge = 1800, origins = {"http://localhost:4200"})
 public class UsuarioController {
 	
 	@Autowired
@@ -56,7 +57,7 @@ public class UsuarioController {
 		
 	}
 	
-	@CrossOrigin(maxAge = 1800, origins = {"http://localhost:4200"})
+	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> adicionar(@RequestBody @Valid UsuarioDTO usuarioDTO) {
