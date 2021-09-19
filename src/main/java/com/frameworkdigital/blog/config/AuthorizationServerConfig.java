@@ -13,8 +13,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
-
 @SuppressWarnings("deprecation")
 @Configuration
 @EnableAuthorizationServer
@@ -25,8 +23,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private UserDetailsService userDetailsService;
+//	@Autowired
+//	private UserDetailsService userDetailsService;
     	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -44,7 +42,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints
 			.authenticationManager(authenticationManager)
-			.userDetailsService(userDetailsService)
+			//.userDetailsService(userDetailsService)
 			.accessTokenConverter(accessTokenConverter())
 			.tokenStore(tokenStore())
 			.reuseRefreshTokens(false);
