@@ -181,7 +181,11 @@ public class PostController {
 		
 		List<Post> posts =  postService.buscarPostsParametro(parametro,pageable);
 		List<PostDTO> retorno = mapperPost.mapperPostList(posts);
-		Page<PostDTO> page = new PageImpl<>(retorno);
+		int pageSize = pageable.getPageSize();
+		long pageOffset = pageable.getOffset();
+		long total = pageOffset + retorno.size() + (retorno.size() == pageSize ? pageSize : 0);
+		Page<PostDTO> page = new PageImpl<PostDTO>(retorno, pageable,total);
+		
 		return ResponseEntity.ok().body(page) ;
 	}
 	
