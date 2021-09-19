@@ -105,28 +105,24 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.security.oauth</groupId> -->
-<!-- 			<artifactId>spring-security-oauth2</artifactId> -->
-<!-- 			<version>${spring-security-oauth2.version}</version> -->
-<!-- 		</dependency> -->
 		
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.springframework.security</groupId> -->
-<!-- 		    <artifactId>spring-security-jwt</artifactId> -->
-<!-- 		    <version>${spring-security-jwt.version}</version> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>2.5.1.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
 		
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.boot</groupId> -->
-<!-- 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId> -->
-<!-- 		</dependency> -->
-<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
-<dependency>
-    <groupId>org.springframework.security</groupId>
-    <artifactId>spring-security-crypto</artifactId>
-    <version>5.5.2</version>
-</dependency>
+		<dependency>
+			<groupId>com.nimbusds</groupId>
+			<artifactId>oauth2-oidc-sdk</artifactId>			
+			<scope>runtime</scope>
+		</dependency>
+
 
 
 	</dependencies>
