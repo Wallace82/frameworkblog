@@ -3,8 +3,6 @@ package com.frameworkdigital.blog.api.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Base64;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -101,7 +98,7 @@ public class PostController {
 		public ResponseEntity<?>  curtir(@PathVariable Long id,@AuthenticationPrincipal Object usuarioLogado) {
 		try {
 			Post post =  postService.buscarPost(id);
-			Usuario  usuario = usuarioService.buscarUsuario(Long.valueOf(usuarioLogado.toString()));
+			Usuario usuario = usuarioService.recuperarLogado(usuarioLogado);
 			
 			postService.curtir(post,usuario);
 			
@@ -117,7 +114,7 @@ public class PostController {
 	@PutMapping(path = "/comentar",  name ="comentar" )
 		public ResponseEntity<?>  comentar(@RequestBody @Valid ComentarioPostInput comentarioPostInput,@AuthenticationPrincipal Object usuarioLogado ) {
 		try {
-			Usuario  usuario = usuarioService.buscarUsuario(Long.valueOf(usuarioLogado.toString()));
+			Usuario usuario = usuarioService.recuperarLogado(usuarioLogado);
 			
 			ComentarioDTO comentarioDTO =  mapperComentario.mapperInput(comentarioPostInput);
 			comentarioDTO.setUsuarioId(usuario.getId());
@@ -139,7 +136,7 @@ public class PostController {
 			
 			Optional<Comentario> comentarioOpt =  comentarioRepository.findById(id);
 			
-			Usuario  usuario = usuarioService.buscarUsuario(Long.valueOf(usuarioLogado.toString()));
+			Usuario usuario = usuarioService.recuperarLogado(usuarioLogado);
 			
 			if(usuario.getId().equals(comentarioOpt.get().getUsuario().getId())) {
 				postService.excluirComentario(comentarioOpt.get());
@@ -199,7 +196,7 @@ public class PostController {
 		postDTO.setId(0l);
 		postDTO.setTipoPostagem(tipoPostagem);
 		
-		postDTO.setUsuarioId(Long.valueOf(usuarioLogado.toString()));//usuario logado
+		postDTO.setUsuarioId(usuarioService.recuperarLogado(usuarioLogado).getId());//usuario logado
 		
 		Post post = postService.cadastrar(mapperPost.mapperPostDto(postDTO));
 		
@@ -217,25 +214,10 @@ public class PostController {
 	@DeleteMapping()
 	public ResponseEntity<?>  excluir(Long id,@AuthenticationPrincipal Object usuarioLogado) throws IOException {
 		
-
 		
-		if (usuarioLogado!=null) {
-			Jwt token = (Jwt) usuarioLogado;
-			System.err.println(token.getTokenValue());
-			String[] chunks = token.getTokenValue().split("\\.");
-			
-			Base64.Decoder decoder = Base64.getDecoder();
-
-			String header = new String(decoder.decode(chunks[0]));
-			String payload = new String(decoder.decode(chunks[1]));
-			 
-			System.err.println(header);
-			
-			System.err.println(payload);
-		}
+		Usuario usuario = usuarioService.recuperarLogado(usuarioLogado);
 		
 		
-		Usuario usuario = usuarioService.buscarUsuario(Long.valueOf(1));
 		try {
 			Post post =  postService.buscarPost(id);
 			
@@ -273,8 +255,6 @@ public class PostController {
 	}
 	
 	
-	
-	
 	private void gravarLinks(Link link) {
 		postService.addLink(link);
 	}
@@ -284,8 +264,6 @@ public class PostController {
 		postService.addImagem(imagensPost);
 		
 	}
-	
-
 	
 
 }

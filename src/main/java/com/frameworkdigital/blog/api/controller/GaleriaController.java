@@ -92,7 +92,7 @@ public class GaleriaController {
 		public ResponseEntity<?>  curtir(@PathVariable Long id,@AuthenticationPrincipal Object usuarioLogado) {
 		try {
 			Post post =  postService.buscarPost(id);
-			Usuario  usuario = usuarioService.buscarUsuario(Long.valueOf(usuarioLogado.toString()));
+			Usuario usuario = usuarioService.recuperarLogado(usuarioLogado);
 			
 			postService.curtir(post,usuario);
 			
@@ -108,7 +108,7 @@ public class GaleriaController {
 	@PutMapping(path = "/comentar",  name ="comentar" )
 		public ResponseEntity<?>  comentar(@RequestBody @Valid ComentarioPostInput comentarioPostInput,@AuthenticationPrincipal Object usuarioLogado) {
 		try {
-			Usuario  usuario = usuarioService.buscarUsuario(Long.valueOf(usuarioLogado.toString()));
+			Usuario usuario = usuarioService.recuperarLogado(usuarioLogado);
 			
 			ComentarioDTO comentarioDTO =  mapperComentario.mapperInput(comentarioPostInput);
 			comentarioDTO.setUsuarioId(usuario.getId());
@@ -130,7 +130,7 @@ public class GaleriaController {
 			
 			Optional<Comentario> comentarioOpt =  comentarioRepository.findById(id);
 			
-			Usuario  usuario = usuarioService.buscarUsuario(Long.valueOf(usuarioLogado.toString()));
+			Usuario usuario = usuarioService.recuperarLogado(usuarioLogado);
 			
 			if(usuario.getId().equals(comentarioOpt.get().getUsuario().getId())) {
 				postService.excluirComentario(comentarioOpt.get());
@@ -187,7 +187,7 @@ public class GaleriaController {
 		postDTO.setId(0l);
 		postDTO.setTipoPostagem(tipoPostagem);
 		
-		postDTO.setUsuarioId(Long.valueOf(usuarioLogado.toString()));//usuario logado
+		postDTO.setUsuarioId(usuarioService.recuperarLogado(usuarioLogado).getId());//usuario logado
 		
 		Post post = postService.cadastrar(mapperPost.mapperPostDto(postDTO));
 		
@@ -202,7 +202,7 @@ public class GaleriaController {
 	
 	@DeleteMapping()
 	public ResponseEntity<?>  excluir(Long id,@AuthenticationPrincipal Object usuarioLogado) throws IOException {
-		Usuario usuario = usuarioService.buscarUsuario(Long.valueOf(usuarioLogado.toString()));
+		Usuario usuario = usuarioService.recuperarLogado(usuarioLogado);
 		try {
 			Post post =  postService.buscarPost(id);
 			

@@ -1,12 +1,10 @@
 package com.frameworkdigital.blog.core.security;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +15,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.frameworkdigital.blog.core.mapper.MapperUsuario;
 import com.frameworkdigital.blog.domain.model.Usuario;
 import com.frameworkdigital.blog.domain.repository.UsuarioRepository;
 
@@ -35,7 +32,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		
 		Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(authentication.getName());
 		Usuario usuario = usuarioOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha incorretos"));
-//		return new UsernamePasswordAuthenticationToken(usuario.getId(), usuario.getSenha(), getPermissoes());
 		return new UsernamePasswordAuthenticationToken(usuario.getId(), getPermissoes(),getPermissoes());
 	}
 	
