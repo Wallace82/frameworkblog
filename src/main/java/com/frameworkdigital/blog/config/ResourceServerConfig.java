@@ -45,7 +45,14 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
             "/configuration/security",
             "/webjars/**",
             "/usuarios/**",
+            "/posts/**",
             "/swagger-ui.html"
+//	        "/**"
+	};
+	
+	private static final String[] AUTH_WHITELIST_POST = {
+			
+            "/usuarios/**",
 //	        "/**"
 	};
 	

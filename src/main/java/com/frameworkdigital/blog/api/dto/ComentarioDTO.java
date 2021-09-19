@@ -22,6 +22,8 @@ public class ComentarioDTO {
 
 	private Long postId;
 	
+	private String descricao;
+	
 	private Long fotoId;
 	
 	private String action = "comentarios";

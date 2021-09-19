@@ -27,7 +27,7 @@ public class MapperComentario {
 	public List<ComentarioDTO> mapperList(List<Comentario> comentarios) {
 		List<ComentarioDTO> retorno = comentarios
 				  .stream()
-				  .map(cat -> mapperEntityToDto(cat))
+				  .map(com -> mapperEntityToDto(com))
 				  .collect(Collectors.toList());
 		return retorno;
 	}
