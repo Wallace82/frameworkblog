@@ -13,24 +13,30 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 @SuppressWarnings("deprecation")
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    @Autowired
+	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private UserDetailsService userDetailsService;
     	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
 				.withClient("frameworkblog")
-				.secret(passwordEncoder.encode("frameworkblog@123")) // @ngul@r0
+				.secret(passwordEncoder.encode("$2a$12$.uTzoGbEYuJWET2aznlLquL.37jFQL4PmZsTfi6Lm2.gI1OfZuWYO")) // frameworkblog@123
 				.scopes("read", "write")
-				.authorizedGrantTypes("password")
-				.accessTokenValiditySeconds(1800);
+				.authorizedGrantTypes("password", "refresh_token")
+				.accessTokenValiditySeconds(1800)
+				.refreshTokenValiditySeconds(3600 * 24);
 			
 	}
 
@@ -38,8 +44,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints
 			.authenticationManager(authenticationManager)
+			.userDetailsService(userDetailsService)
 			.accessTokenConverter(accessTokenConverter())
-			.tokenStore(tokenStore());
+			.tokenStore(tokenStore())
+			.reuseRefreshTokens(false);
 	}
 
 	@Bean
@@ -55,6 +63,5 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
 	}
-
-
 }
+	
