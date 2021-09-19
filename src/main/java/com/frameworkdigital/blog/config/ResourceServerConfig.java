@@ -45,7 +45,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
             "/configuration/security",
             "/webjars/**",
             "/usuarios/**",
+            "/posts/**",
             "/posts",
+            "/posts/comentarios/**",
             "/categorias",
             "/swagger-ui.html"
 //	        "/**"

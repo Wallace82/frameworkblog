@@ -92,14 +92,13 @@
 		</dependency>
 
 	
-
-
 		<!-- Migracoes - Flyway -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.flywaydb</groupId> -->
-<!-- 			<artifactId>flyway-core</artifactId> -->
-<!-- 		</dependency> -->
-
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		
+		
 		<!-- Segurança -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
