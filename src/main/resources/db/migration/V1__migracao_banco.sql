@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS comentario
 (
     com_codigo SERIAL PRIMARY KEY,
     com_datacadastro timestamp without time zone,
-    cat_descricao character varying(255) COLLATE pg_catalog."default",
+    cat_descricao character varying(5000) COLLATE pg_catalog."default",
     pos_codigo bigint,
     usu_codigo_comentario bigint NOT NULL,
     CONSTRAINT fkgfg28509ud0jivpayhu8rmtk4 FOREIGN KEY (usu_codigo_comentario)

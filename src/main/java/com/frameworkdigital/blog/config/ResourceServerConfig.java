@@ -47,6 +47,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
             "/usuarios/**",
             "/posts/**",
             "/posts",
+            "/imagenspost/**",
             "/posts/comentarios/**",
             "/categorias/**",
             "/swagger-ui.html"
