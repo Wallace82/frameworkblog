@@ -28,32 +28,20 @@ Desafio reformulaçao de blog da Framework Digital , construir uma nova versão 
 
  <b>Windows</b>
 
-    Realize o Download Postgres
-    Download  https://www.enterprisedb.com/downloads/postgres-postgresql-downloads 
-
-
-<i>Após a instalação abra PGADMIN<i>
-
-<b>1- Configurar Banco de dados</b>
-
-    Criar um banco chamado -> blog
-
-    posteriormente alterar senha no arquivo application.properties para a senha que voceescolher nesta instalação;
-
-
+   
 <b>Após a instalação abra o Git CMD<b>
 
-<b>2- Configurar Conta</b>
+<b>1- Configurar Conta</b>
 
     git config --global user.name "John Doe"             ←(“Nome do User do gitlab ” )
  
     git config --global user.email johndoe@example.com   ←(“email do gitlab ” )
 
-<b>3 - Desabilite a verificação SSL</b>
+<b>2 - Desabilite a verificação SSL</b>
 
     git config --global http.sslVerify false
     
-<b>4 - Clone o repositório e importe no eclipse</b> 
+<b>3 - Clone o repositório e importe no eclipse</b> 
 
     git clone frameworkblog
 
@@ -72,7 +60,7 @@ E agora?
     NAO Dê CTRL + C e CTRL + V no link
     Tem que digitar msm.
     
- <b>5 - Localizar o diretório .m2\repository\org\projectlombok\lombok\1.18.20 em seguida:
+ <b>4 - Localizar o diretório .m2\repository\org\projectlombok\lombok\1.18.20 em seguida:
  
     pelo PROMPT exercutar o comando  *java -jar lombok-1.18.20.jar * para rodar o *.jar* 
 
@@ -83,7 +71,18 @@ E agora?
 
     https://projectlombok.org/
 
-    
+
+ Realize o Download Postgres
+    Download  https://www.enterprisedb.com/downloads/postgres-postgresql-downloads 
+
+
+<i>Após a instalação abra PGADMIN<i>
+
+<b>5- Configurar Banco de dados</b>
+
+    Criar um banco chamado -> blog
+
+    posteriormente alterar senha no arquivo application.properties para a senha que voceescolher nesta instalação;
     
 <b>Linux Ubuntu</b>
 
@@ -112,4 +111,10 @@ E agora?
     git clone https://gitlab.com/gomesw/frameworkblog.git
     
 
+<b>Acessar swagger para conferir as APIS</b>
 
+    Após aplicaçao iniciada acesse o link
+
+    http://localhost:8080/swagger-ui.html
+
+    necessário token de validaçao para Endpoints protegidos
