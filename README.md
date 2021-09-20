@@ -47,15 +47,14 @@ Desafio reformulaçao de blog da Framework Digital , construir uma nova versão 
 
     git clone frameworkblog
     
- <b>4 - faça o Download do drive sqljdbc mova o para para o diretório c: Instale o  e em seguida:
+ <b>4 - Localizar o diretório .m2\repository\org\projectlombok\lombok\1.18.20 em seguida:
  
-    http://www.java2s.com/Code/Jar/s/Downloadsqljdbc420jar.htm
-   
-    ir no eclipse, Runs As > Maven Build...  e colocar a linha abaixo em Goals. Depois Selcionar Run.
-    install:install-file -Dfile=C:\sqljdbc42.jar -DgroupId=com.microsoft.sqlserver -DartifactId=sqljdbc4 -Dversion=4.2 -Dpackaging=jar
+   pelo PROMPT exercutar o comando  *java -jar lombok-1.18.20.jar * para rodar o *.jar* 
 
-* Possiveis Problemas
-* 
+   na interface escolha sua IDE eclipse e instale o Lombok
+
+* Possiveis Problemas *
+
 Problema ao clonar
 
     git clone https://gitlab.com/gomesw/frameworkblog.git
@@ -86,10 +85,5 @@ E agora?
 
     git clone https://gitlab.com/gomesw/frameworkblog.git
     
-<b>4 - Configurar Lombok
- 
-    https://gitlab.com/gomesw/frameworkblog.git
-   
-    ir no eclipse, Runs As > Maven Build...  e colocar a linha abaixo em Goals. Depois Selcionar Run.
-    install:install-file -Dfile=C:\sqljdbc42.jar -DgroupId=com.microsoft.sqlserver -DartifactId=sqljdbc4 -Dversion=4.2 -Dpackaging=jar
+
 
