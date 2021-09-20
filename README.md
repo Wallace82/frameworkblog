@@ -6,11 +6,12 @@ Desafio reformulaçao de blog da Framework Digital , construir uma nova versão 
 
 - Código versionado em repositório GIT
 - Java versão 8 ou superior
-- Spring Boot
-- Banco de Dados Postgresql
+- Spring Boot https://spring.io/  2.5.0
+- Banco de Dados Postgresql https://www.postgresql.org/download/   postgresql-13.4-1-windows-x64
 - API Restful
 - Maven
 - Angular 8
+- Node.js 
 
 **Deverão ser construídas interfaces Web e APIs de forma a suportar as seguintes operações:**
 | header | header |
@@ -27,33 +28,36 @@ Desafio reformulaçao de blog da Framework Digital , construir uma nova versão 
 
  <b>Windows</b>
 
- Realize o Download 
- 
- Download https://git-scm.com/downloads
+ Realize o Download Postgres
+ Download  https://www.enterprisedb.com/downloads/postgres-postgresql-downloads 
+
+
+<i>Após a instalação abra PGADMIN<i>
+
+<b>1- Configurar Banco de dados</b>
+
+Criar um banco chamado -> blog
+
+posteriormente alterar senha no arquivo application.properties para a senha que voceescolher nesta instalação;
+
 
 <i>Após a instalação abra o Git CMD<i>
 
-<b>1- Configurar Conta</b>
+<b>2- Configurar Conta</b>
 
     git config --global user.name "John Doe"             ←(“Nome do User do gitlab ” )
  
     git config --global user.email johndoe@example.com   ←(“email do gitlab ” )
 
-<b>2 - Desabilite a verificação SSL</b>
+<b>3 - Desabilite a verificação SSL</b>
 
     git config --global http.sslVerify false
     
-<b>3 - Clone o repositório e importe no eclipse</b> 
+<b>4 - Clone o repositório e importe no eclipse</b> 
 
     git clone frameworkblog
-    
- <b>4 - Localizar o diretório .m2\repository\org\projectlombok\lombok\1.18.20 em seguida:
- 
-   pelo PROMPT exercutar o comando  *java -jar lombok-1.18.20.jar * para rodar o *.jar* 
 
-   na interface escolha sua IDE eclipse e instale o Lombok
-
-* Possiveis Problemas *
+    * Possiveis Problemas *
 
 Problema ao clonar
 
@@ -68,20 +72,42 @@ E agora?
     NAO Dê CTRL + C e CTRL + V no link
     Tem que digitar msm.
     
+ <b>5 - Localizar o diretório .m2\repository\org\projectlombok\lombok\1.18.20 em seguida:
+ 
+   pelo PROMPT exercutar o comando  *java -jar lombok-1.18.20.jar * para rodar o *.jar* 
+
+   na interface escolha sua IDE eclipse e instale o Lombok
+
+O Projeto Lombok é uma biblioteca java que se conecta automaticamente ao seu editor e ferramentas de construção, aprimorando o seu java.
+Nunca escreva outro método getter ou equals novamente, com uma anotação sua classe tem um construtor completo, Automatiza suas variáveis ​​de registro e muito mais.
+
+https://projectlombok.org/
+
+    
     
 <b>Linux Ubuntu</b>
 
-1 - Abra o terminal e digite para a instalação git o seguinte comando
+i>Após a instalação abra PGADMIN<i>
+
+<b>1- Configurar Banco de dados</b>
+
+Criar um banco chamado -> blog
+
+posteriormente alterar senha no arquivo application.properties para a senha que voceescolher nesta instalação;
+
+
+
+<i>2 - Abra o terminal e digite para a instalação git o seguinte comando</i>
 
     sudo apt-get install git
 
-<i>1- Configurar Conta</i>
+<i>3- Configurar Conta</i>
 
     git config --global user.name "John Doe"             ←(“Nome do User do gitlab ” )
  
     git config --global user.email johndoe@example.com   ←(“email do gitlab ” )
     
-<b>3 - Clone o repositório e importe no eclipse</b> 
+<b>4 - Clone o repositório e importe no eclipse</b> 
 
     git clone https://gitlab.com/gomesw/frameworkblog.git
     
