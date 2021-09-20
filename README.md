@@ -20,3 +20,76 @@ Desafio reformulaçao de blog da Framework Digital , construir uma nova versão 
 | Comentário | Suportar a adição e exclusão de comentários em posts. Os posts poderão ser visíveis a todos os usuários. Apenas o criador do comentário poderá ter permissão para excluí-lo. |
 | Foto | Permitir a criação de álbuns de fotos. As fotos dos álbuns poderão ser visíveis a todos os usuários. Apenas o dono de um álbum poderá excluí-lo. |
 
+* Versão 1.0
+
+## Guia de Contribuição
+
+
+ <b>Windows</b>
+
+ Realize o Download 
+ 
+ Download https://git-scm.com/downloads
+
+<i>Após a instalação abra o Git CMD<i>
+
+<b>1- Configurar Conta</b>
+
+    git config --global user.name "John Doe"             ←(“Nome do User do gitlab ” )
+ 
+    git config --global user.email johndoe@example.com   ←(“email do gitlab ” )
+
+<b>2 - Desabilite a verificação SSL</b>
+
+    git config --global http.sslVerify false
+    
+<b>3 - Clone o repositório e importe no eclipse</b> 
+
+    git clone frameworkblog
+    
+ <b>4 - faça o Download do drive sqljdbc mova o para para o diretório c: Instale o  e em seguida:
+ 
+    http://www.java2s.com/Code/Jar/s/Downloadsqljdbc420jar.htm
+   
+    ir no eclipse, Runs As > Maven Build...  e colocar a linha abaixo em Goals. Depois Selcionar Run.
+    install:install-file -Dfile=C:\sqljdbc42.jar -DgroupId=com.microsoft.sqlserver -DartifactId=sqljdbc4 -Dversion=4.2 -Dpackaging=jar
+
+* Possiveis Problemas
+* 
+Problema ao clonar
+
+    git clone https://gitlab.com/gomesw/frameworkblog.git
+    Cloning into 'frameworkblog'...
+    fatal: I don't handle protocol 'https'
+
+E agora? 
+
+<b>Problema:</b> UTF do windows  
+<b>Solução:</b> basta digitar o comando git clone e digitar endereço do repositório
+    NAO Dê CTRL + C e CTRL + V no link
+    Tem que digitar msm.
+    
+    
+<b>Linux Ubuntu</b>
+
+1 - Abra o terminal e digite para a instalação git o seguinte comando
+
+    sudo apt-get install git
+
+<i>1- Configurar Conta</i>
+
+    git config --global user.name "John Doe"             ←(“Nome do User do gitlab ” )
+ 
+    git config --global user.email johndoe@example.com   ←(“email do gitlab ” )
+    
+<b>3 - Clone o repositório e importe no eclipse</b> 
+
+    git clone https://gitlab.com/gomesw/frameworkblog.git
+    
+<b>4 - Configurar Lombok
+ 
+    https://gitlab.com/gomesw/frameworkblog.git
+   
+    ir no eclipse, Runs As > Maven Build...  e colocar a linha abaixo em Goals. Depois Selcionar Run.
+    install:install-file -Dfile=C:\sqljdbc42.jar -DgroupId=com.microsoft.sqlserver -DartifactId=sqljdbc4 -Dversion=4.2 -Dpackaging=jar
+
