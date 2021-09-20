@@ -28,20 +28,20 @@ Desafio reformulaçao de blog da Framework Digital , construir uma nova versão 
 
  <b>Windows</b>
 
- Realize o Download Postgres
- Download  https://www.enterprisedb.com/downloads/postgres-postgresql-downloads 
+    Realize o Download Postgres
+    Download  https://www.enterprisedb.com/downloads/postgres-postgresql-downloads 
 
 
 <i>Após a instalação abra PGADMIN<i>
 
 <b>1- Configurar Banco de dados</b>
 
-Criar um banco chamado -> blog
+    Criar um banco chamado -> blog
 
-posteriormente alterar senha no arquivo application.properties para a senha que voceescolher nesta instalação;
+    posteriormente alterar senha no arquivo application.properties para a senha que voceescolher nesta instalação;
 
 
-<i>Após a instalação abra o Git CMD<i>
+<b>Após a instalação abra o Git CMD<b>
 
 <b>2- Configurar Conta</b>
 
@@ -74,26 +74,26 @@ E agora?
     
  <b>5 - Localizar o diretório .m2\repository\org\projectlombok\lombok\1.18.20 em seguida:
  
-   pelo PROMPT exercutar o comando  *java -jar lombok-1.18.20.jar * para rodar o *.jar* 
+    pelo PROMPT exercutar o comando  *java -jar lombok-1.18.20.jar * para rodar o *.jar* 
 
-   na interface escolha sua IDE eclipse e instale o Lombok
+    na interface escolha sua IDE eclipse e instale o Lombok
 
-O Projeto Lombok é uma biblioteca java que se conecta automaticamente ao seu editor e ferramentas de construção, aprimorando o seu java.
-Nunca escreva outro método getter ou equals novamente, com uma anotação sua classe tem um construtor completo, Automatiza suas variáveis ​​de registro e muito mais.
+    O Projeto Lombok é uma biblioteca java que se conecta automaticamente ao seu editor e ferramentas de construção, aprimorando o seu java.
+    Nunca escreva outro método getter ou equals novamente, com uma anotação sua classe tem um construtor completo, Automatiza suas variáveis ​​de registro e muito mais.
 
-https://projectlombok.org/
+    https://projectlombok.org/
 
     
     
 <b>Linux Ubuntu</b>
 
-i>Após a instalação abra PGADMIN<i>
+<i>Após a instalação abra PGADMIN<i>
 
 <b>1- Configurar Banco de dados</b>
 
-Criar um banco chamado -> blog
+    Criar um banco chamado -> blog
 
-posteriormente alterar senha no arquivo application.properties para a senha que voceescolher nesta instalação;
+    posteriormente alterar senha no arquivo application.properties para a senha que voceescolher nesta instalação;
 
 
 
